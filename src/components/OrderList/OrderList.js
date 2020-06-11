@@ -13,7 +13,7 @@ import PostAddIcon from '@material-ui/icons/PostAdd';
 import SearchIcon from '@material-ui/icons/Search';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
-
+import './OrderList.css' 
 
 const useStyles = makeStyles({
     table: {
@@ -68,7 +68,7 @@ export default class OrderList extends Component{
     render(){
         return(
             <TableContainer component={Paper}>
-                <Table aria-label="customized table">
+                <Table className='order-table' aria-label="customized table">
                     <TableHead>
                         <TableRow>
                             <TableCell>Order Id</TableCell>
