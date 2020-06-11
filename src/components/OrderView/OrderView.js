@@ -14,6 +14,7 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import UpdateIcon from '@material-ui/icons/Update';
+import './OrderView.css' 
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -167,7 +168,7 @@ export default class OrderView extends Component {
 
         <Grid item xs={8}>
           <TableContainer component={Paper}>
-            <Table aria-label="customized table">
+            <Table aria-label="customized table" className="order-product-table">
               <TableHead>
                 <TableRow style={{ backgroundColor: '#00bcd4', color: '#fafafa' }} variant="head">
                   <TableCell>Product Name</TableCell>

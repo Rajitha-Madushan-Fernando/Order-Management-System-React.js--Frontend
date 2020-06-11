@@ -71,7 +71,7 @@ export default class OrderList extends Component{
                 <Table className='order-table' aria-label="customized table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Order Id</TableCell>
+                            <TableCell>#Order ID</TableCell>
                             <TableCell>Date</TableCell>
                             <TableCell>Code</TableCell>
                             <TableCell>Status</TableCell>

@@ -62,11 +62,11 @@ export default class CustomerList extends Component{
     };
    
     render(){
-        const classes = useStyles();
+       
         return(
             
             <TableContainer component={Paper}>
-                <Table aria-label="customized table" className={classes.table}>
+                <Table aria-label="customized table">
                     <TableHead>
                         <TableRow style={{backgroundColor:'#2196f3', color: '#fafafa'}} variant="head">
                             <TableCell>Customer Name</TableCell>

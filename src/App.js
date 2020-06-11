@@ -16,12 +16,12 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
 
-import CustomerList from './components/CustomerList';
-import ProductList from './components/ProductList';
-import HomePage from './components/HomePage';
+import CustomerList from './components/CustomerList/CustomerList';
+import ProductList from './components/ProductList/ProductList';
+import HomePage from './components/HomePage/HomePage';
 import OrderList from './components/OrderList/OrderList';
-import OrderView from './components/OrderView';
-import OrderProductEdit from './components/OrderProductEdit';
+import OrderView from './components/OrderView/OrderView';
+import OrderProductEdit from './components/OrderProductEdit/OrderProductEdit';
 
 const drawerWidth = 240;
 
