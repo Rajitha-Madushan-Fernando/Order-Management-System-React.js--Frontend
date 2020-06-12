@@ -28,23 +28,23 @@ export default class NewCustomer extends Component {
       address: '',
       show: false,
       errors:{
-        uid:[],
-        name:[],
-        email:[],
-        contact_number:[],
-        address:[],
-        show:[],
+        cus_unique_id:'',
+        customer_name:'',
+        email:'',
+        contact_number:'',
+        address:'',
       }
     }
     this.submitCustomer = this.submitCustomer.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-
+    this.resetErrorState = this.resetErrorState.bind(this);
+    
   };
 
   handleInputChange(event) {
     const { value, name } = event.target;
-    console.log('value', value);
-    console.log('name', name);
+    //console.log('value', value);
+    //console.log('name', name);
     this.setState({ [name]: value });
 
 
@@ -53,6 +53,17 @@ export default class NewCustomer extends Component {
   resetState() {
     this.setState({
       id:'', uid: '', name: '', email: '', contact_number: '', address: ''
+    })
+  }
+
+  resetErrorState(){
+    this.setState({errors:{
+        cus_unique_id:'',
+        customer_name:'',
+        email:'',
+        contact_number:'',
+        address:'',
+      }
     })
   }
 
@@ -84,6 +95,7 @@ export default class NewCustomer extends Component {
   };
 
   updateCustomer = event => {
+    this.resetErrorState();
     event.preventDefault();
 
     const customer = {
@@ -108,12 +120,13 @@ export default class NewCustomer extends Component {
   };
 
   submitCustomer = event => {
+    this.resetErrorState();
     event.preventDefault();
 
     const customer = {
       cus_unique_id: this.state.uid,
-      customer_name: this.state.name,
-      email: this.state.email,
+      // customer_name: this.state.name,
+      // email: this.state.email,
       contact_number: this.state.contact_number,
       address: this.state.address
     };
@@ -126,8 +139,17 @@ export default class NewCustomer extends Component {
           this.setState({ "show": false });
         }
       })
-      .catch(error => {
-        console.log(error)
+      .catch(_errors => {
+        if(_errors.response){
+          const { errors } = _errors.response.data;
+          let errorsObj = {}
+          errors.forEach(error=>{
+            const { defaultMessage, field} = error
+            errorsObj[field] = defaultMessage;
+          })
+          console.log(errorsObj);
+          this.setState({errors : errorsObj});
+        }
       });
   };
 
@@ -140,7 +162,7 @@ export default class NewCustomer extends Component {
             <CustomMessage show ={ this.state.show } message= {this.state.method === "put" ? "Customer Updated Successfully." : "Customer Saved Successfully."} severity= {"success"}/>
         </div>
         <Container maxWidth="sm" style={{float:"left"}}>
-        <form onSubmit={this.state.id ? this.updateCustomer : this.submitCustomer } >
+        <form onSubmit={this.state.id ? this.updateCustomer : this.submitCustomer} >
           <TextField
             name="uid"
             value={this.state.uid}
@@ -148,7 +170,7 @@ export default class NewCustomer extends Component {
             label="Customer ID"
             style={{ margin: 2 }}
             placeholder="Enter Customer ID"
-            helperText="This field is required!"
+            helperText={this.state.errors.cus_unique_id}
             fullWidth
             onChange={this.handleInputChange}
             margin="normal"
@@ -165,7 +187,7 @@ export default class NewCustomer extends Component {
             label="Customer Name"
             style={{ margin: 2 }}
             placeholder="Enter Customer Name"
-            helperText="This field is required!"
+            helperText={this.state.errors.customer_name}
             fullWidth
             margin="normal"
             InputLabelProps={{
@@ -181,7 +203,7 @@ export default class NewCustomer extends Component {
             label="Email"
             style={{ margin: 2 }}
             placeholder="Enter Customer Email"
-            helperText="This field is required!"
+            helperText={this.state.errors.email}
             fullWidth
             margin="normal"
             InputLabelProps={{
@@ -198,7 +220,7 @@ export default class NewCustomer extends Component {
             type="number"
             style={{ margin: 2 }}
             placeholder="Enter Customer Contact Number"
-            helperText="This field is required!"
+            helperText={this.state.errors.contact_number}
             fullWidth
             margin="normal"
             InputLabelProps={{
@@ -217,7 +239,7 @@ export default class NewCustomer extends Component {
             fullWidth
             rows={4}
             placeholder="Enter Customer Address"
-            helperText="This field is required"
+            helperText={this.state.errors.address}
             variant="outlined"
           />
           <Button
@@ -234,6 +256,7 @@ export default class NewCustomer extends Component {
             variant="contained"
             color="primary"
             endIcon={<RotateLeftIcon />}
+            onClick={this.resetErrorState}
           >
             Reset</Button>
         </form>

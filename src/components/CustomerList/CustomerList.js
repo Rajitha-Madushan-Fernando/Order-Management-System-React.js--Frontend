@@ -106,14 +106,14 @@ export default class CustomerList extends Component {
                                         <TableCell>
                                             <ButtonGroup>
                                                 <Link to={"UpdateCustomer/" + customer.id} >
-                                                    <Button
+                                                    {/* <Button
                                                         size="sm"
                                                         variant="outline-danger"
                                                     >
                                                         <EditIcon />
-                                                    </Button>
+                                                    </Button> */}
                                                 </Link>{' '}
-                                                <Button size="sm" variant="outline-danger" onClick={this.deleteCustomer.bind(this, customer.id)}><DeleteForeverIcon /></Button>
+                                                {/* <Button size="sm" variant="outline-danger" onClick={this.deleteCustomer.bind(this, customer.id)}><DeleteForeverIcon /></Button> */}
                                             </ButtonGroup>
                                         </TableCell>
                                     </TableRow>
