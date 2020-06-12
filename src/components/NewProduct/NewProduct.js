@@ -6,7 +6,6 @@ import {
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import './NewCustomer.css'
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 import SendIcon from '@material-ui/icons/Send';
 import CustomMessage from '../CustomMessage/CustomMessage';
@@ -16,35 +15,25 @@ import { appConfig } from '../../configs/app.config';
 const { baseUrl } = appConfig;
 
 
-export default class NewCustomer extends Component {
+export default class NewProduct extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      uid: '',
       name: '',
-      email: '',
-      contact_number: '',
-      address: '',
-      show: false,
-      errors:{
-        uid:[],
-        name:[],
-        email:[],
-        contact_number:[],
-        address:[],
-        show:[],
-      }
+      product_code: '',
+      price: '',
+      unit: '',
+      status: '',
+      show: false
     }
-    this.submitCustomer = this.submitCustomer.bind(this);
+    this.submitProduct = this.submitProduct.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
 
   };
 
   handleInputChange(event) {
     const { value, name } = event.target;
-    console.log('value', value);
-    console.log('name', name);
     this.setState({ [name]: value });
 
 
@@ -52,30 +41,30 @@ export default class NewCustomer extends Component {
 
   resetState() {
     this.setState({
-      id:'', uid: '', name: '', email: '', contact_number: '', address: ''
+      id:'', name: '', product_code: '', price: '', unit: '', status: ''
     })
   }
 
   componentDidMount(){
-    const customerId = +this.props.match.params.id;
+    const productId = +this.props.match.params.id;
 
-    if(customerId){
-       this.findCustomerById(customerId);
+    if(productId){
+       this.findProductById(productId);
     }
   }
 
-  findCustomerById = (customerId) => {
-    axios.get(`${baseUrl}/customer/list/`+customerId)
+  findProductById = (productId) => {
+    axios.get(`${baseUrl}/product/list/`+productId)
         .then(response => {
             if(response.data != null) {
                 console.log('response',response);
                 this.setState({
                     id: response.data.id,
-                    uid: response.data.cus_unique_id,
-                    name: response.data.customer_name,
-                    email: response.data.email,
-                    address: response.data.address,
-                    contact_number: response.data.contact_number,
+                    name: response.data.name,
+                    product_code: response.data.product_code,
+                    price: response.data.price,
+                    unit: response.data.unit,
+                    status: response.data.status,
                 });
             }
         }).catch((error) => {
@@ -83,51 +72,50 @@ export default class NewCustomer extends Component {
         });
   };
 
-  updateCustomer = event => {
+  updateProduct = event => {
     event.preventDefault();
 
-    const customer = {
+    const product = {
         id: this.state.id,
-        cus_unique_id: this.state.uid,
-        customer_name: this.state.name,
-        email: this.state.email,
-        contact_number: this.state.contact_number,
-        address: this.state.address
+        name: this.state.name,
+        product_code: this.state.product_code,
+        price: this.state.price,
+        unit: this.state.unit,
+        status: this.state.status
     };
 
-    axios.put(`${baseUrl}/customer/add/` ,customer)
-      .then(response => { 
-        if (response.data != null) {
-            this.setState({"show":true, "method":"put"});
-        }
-        else {
-            this.setState({"show":false});
-        }
-      });
-    this.setState(this.initialState);
+    axios.put(`${baseUrl}/product/add/` ,product)
+        .then(response => {
+          
+            if (response.data != null) {
+                this.setState({"show":true, "method":"put"});
+            }
+            else{
+                this.setState({"show":false});
+            }
+        });
+        this.setState(this.initialState);
   };
 
-  submitCustomer = event => {
+  submitProduct = event => {
     event.preventDefault();
 
-    const customer = {
-      cus_unique_id: this.state.uid,
-      customer_name: this.state.name,
-      email: this.state.email,
-      contact_number: this.state.contact_number,
-      address: this.state.address
+    const product = {
+        name: this.state.name,
+        product_code: this.state.product_code,
+        price: this.state.price,
+        unit: this.state.unit,
+        status: this.state.status
     };
-    axios.post(`${baseUrl}/customer/add`, customer)
+    axios.post(`${baseUrl}/product/add`, product)
       .then(response => {
         if (response.data != null) {
-          console.log(customer);
+          console.log(product);
+          this.setState({ "show": true, "method": "post" });
         }
         else {
           this.setState({ "show": false });
         }
-      })
-      .catch(error => {
-        console.log(error)
       });
   };
 
@@ -137,34 +125,34 @@ export default class NewCustomer extends Component {
     return (
       <div>
         <div style={{"display":this.state.show ? "block" : "none"}}>
-            <CustomMessage show ={ this.state.show } message= {this.state.method === "put" ? "Customer Updated Successfully." : "Customer Saved Successfully."} severity= {"success"}/>
+            <CustomMessage show ={ this.state.show } message= {this.state.method === "put" ? "Product Updated Successfully." : "Product Saved Successfully."} severity= {"success"}/>
         </div>
         <Container maxWidth="sm" style={{float:"left"}}>
-        <form onSubmit={this.state.id ? this.updateCustomer : this.submitCustomer } >
-          <TextField
-            name="uid"
-            value={this.state.uid}
-            id="outlined-full-width"
-            label="Customer ID"
-            style={{ margin: 2 }}
-            placeholder="Enter Customer ID"
-            helperText="This field is required!"
-            fullWidth
-            onChange={this.handleInputChange}
-            margin="normal"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            variant="outlined"
-          />
+        <form onSubmit={this.state.id ? this.updateProduct : this.submitProduct } >
           <TextField
             name="name"
             value={this.state.name}
+            id="outlined-full-width"
+            label="Product Name"
+            style={{ margin: 2 }}
+            placeholder="Enter Product Name"
+            helperText="This field is required!"
+            fullWidth
+            onChange={this.handleInputChange}
+            margin="normal"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            variant="outlined"
+          />
+          <TextField
+            name="product_code"
+            value={this.state.product_code}
             onChange={this.handleInputChange}
             id="outlined-full-width"
-            label="Customer Name"
+            label="Product Code"
             style={{ margin: 2 }}
-            placeholder="Enter Customer Name"
+            placeholder="Enter Product Code"
             helperText="This field is required!"
             fullWidth
             margin="normal"
@@ -174,13 +162,13 @@ export default class NewCustomer extends Component {
             variant="outlined"
           />
           <TextField
-            name="email"
-            value={this.state.email}
+            name="price"
+            value={this.state.price}
             onChange={this.handleInputChange}
             id="outlined-full-width"
-            label="Email"
+            label="Price"
             style={{ margin: 2 }}
-            placeholder="Enter Customer Email"
+            placeholder="Enter Price"
             helperText="This field is required!"
             fullWidth
             margin="normal"
@@ -190,14 +178,14 @@ export default class NewCustomer extends Component {
             variant="outlined"
           />
           <TextField
-            name="contact_number"
-            value={this.state.contact_number}
+            name="unit"
+            value={this.state.unit}
             onChange={this.handleInputChange}
             id="outlined-full-width"
-            label="Contact Number"
+            label="Current Stock"
             type="number"
             style={{ margin: 2 }}
-            placeholder="Enter Customer Contact Number"
+            placeholder="Enter Current stock"
             helperText="This field is required!"
             fullWidth
             margin="normal"
@@ -207,19 +195,6 @@ export default class NewCustomer extends Component {
             variant="outlined"
           />
 
-          <TextField
-            name="address"
-            value={this.state.address}
-            onChange={this.handleInputChange}
-            id="outlined-multiline-static"
-            label="Multiline"
-            multiline
-            fullWidth
-            rows={4}
-            placeholder="Enter Customer Address"
-            helperText="This field is required"
-            variant="outlined"
-          />
           <Button
             type="submit"
             variant="contained"

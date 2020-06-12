@@ -23,6 +23,10 @@ import OrderList from './components/OrderList/OrderList';
 import OrderView from './components/OrderView/OrderView';
 import OrderProductEdit from './components/OrderProductEdit/OrderProductEdit';
 import NewCustomer from './components/NewCustomer/NewCustomer';
+import NewProduct from './components/NewProduct/NewProduct';
+import ErrorPage from './components/ErrorPage/ErrorPage';
+
+
 
 const drawerWidth = 240;
 
@@ -193,6 +197,10 @@ function App(props) {
             <Route exact path="/OrderView/:id" component={OrderView} />
             <Route exact path="/OrderProductEdit/:id" component={OrderProductEdit} />
             <Route exact path="/NewCustomer" component={NewCustomer} />
+            <Route exact path="/UpdateCustomer/:id" component={NewCustomer} />
+            <Route exact path="/NewProduct" component={NewProduct} />
+            <Route exact path="/UpdateProduct/:id" component={NewProduct} />
+            <Route component={ErrorPage} />
           </Switch>
         </main>
 

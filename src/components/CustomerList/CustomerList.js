@@ -105,7 +105,7 @@ export default class CustomerList extends Component {
                                         <TableCell>{customer.cus_unique_id}</TableCell>
                                         <TableCell>
                                             <ButtonGroup>
-                                                <Link to={"edit/" + customer.id} >
+                                                <Link to={"UpdateCustomer/" + customer.id} >
                                                     <Button
                                                         size="sm"
                                                         variant="outline-danger"
