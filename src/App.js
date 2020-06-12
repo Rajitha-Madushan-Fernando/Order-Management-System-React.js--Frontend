@@ -22,6 +22,7 @@ import HomePage from './components/HomePage/HomePage';
 import OrderList from './components/OrderList/OrderList';
 import OrderView from './components/OrderView/OrderView';
 import OrderProductEdit from './components/OrderProductEdit/OrderProductEdit';
+import NewCustomer from './components/NewCustomer/NewCustomer';
 
 const drawerWidth = 240;
 
@@ -191,6 +192,7 @@ function App(props) {
             <Route exact path="/Order" component={OrderList} />
             <Route exact path="/OrderView/:id" component={OrderView} />
             <Route exact path="/OrderProductEdit/:id" component={OrderProductEdit} />
+            <Route exact path="/NewCustomer" component={NewCustomer} />
           </Switch>
         </main>
 

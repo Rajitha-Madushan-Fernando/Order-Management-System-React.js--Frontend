@@ -1,78 +1,116 @@
-import React from 'react';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import React,{ Component } from "react";
 
-const StyledTableCell = withStyles((theme) => ({
-  head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  body: {
-    fontSize: 14,
-  },
-}))(TableCell);
+import { 
+    Button , ButtonGroup,Table,TableBody,TableCell,TableContainer,TableHead,
+    TableRow,Paper
+} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
-const StyledTableRow = withStyles((theme) => ({
-  root: {
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
-    },
-  },
-}))(TableRow);
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
 
 const useStyles = makeStyles({
-  table: {
-    minWidth: 700,
-  },
+    table: {
+      minWidth: 650,
+    },
 });
 
-export default function OrderProductEdit() {
-  const classes = useStyles();
 
-  return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell>Dessert (100g serving)</StyledTableCell>
-            <StyledTableCell align="right">Calories</StyledTableCell>
-            <StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
-            <StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
-            <StyledTableCell align="right">Protein&nbsp;(g)</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.name}>
-              <StyledTableCell component="th" scope="row">
-                {row.name}
-              </StyledTableCell>
-              <StyledTableCell align="right">{row.calories}</StyledTableCell>
-              <StyledTableCell align="right">{row.fat}</StyledTableCell>
-              <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-              <StyledTableCell align="right">{row.protein}</StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
+
+export default class OrderProductEdit extends Component{
+    
+    constructor(props) {
+        super(props);
+        this.state = {
+            product: []
+        };
+    }
+
+    componentDidMount() {
+       this.findAllProduct();
+    }
+
+    findAllProduct(){
+        axios.get("http://localhost:9090/springboot/product/list")
+        /** .then(response => console.log(response.data));*/
+        .then(response => response.data)
+        .then((data) => {
+            this.setState({ product: data });
+        });
+    }
+
+    deleteProduct = (productId) => {
+        axios.delete("http://localhost:9090/springboot/product/delete/"+productId)
+        .then(response => {
+            if( response.data != null){
+                this.setState({"show":true});
+                setTimeout(() => this.setState({"show":false}),3000);
+                    this.setState({
+                        product:this.product.filter(product => product.id !== productId)    
+                    });
+             }
+             else{
+                this.setState({"show":false});
+            }
+
+        });
+            
+    };
+   
+    render(){
+        return(
+            <TableContainer component={Paper}>
+                <Table aria-label="customized table">
+                    <TableHead>
+                         <TableRow style={{backgroundColor:'#2196f3', color: '#fafafa'}} variant="head">
+                            <TableCell>Product Code</TableCell>
+                            <TableCell>Name</TableCell>
+                            <TableCell>Unit Price</TableCell>
+                            <TableCell>Current Stock</TableCell>
+                            <TableCell>Status</TableCell>
+                            <TableCell></TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+
+                        {
+                            this.state.product.length === 0 ?
+                            <TableRow align="center">
+                                <TableCell colSpan="5">No Product Available</TableCell>
+                            </TableRow> :
+                            this.state.product.map((product) =>(
+                                <TableRow key={product.id}>
+                                    <TableCell>{product.product_code}</TableCell>
+                                    <TableCell>{product.name}</TableCell>
+                                    <TableCell>{product.price}</TableCell>  
+                                    <TableCell>{product.unit}</TableCell>  
+                                    <TableCell>
+                                    {product.status === 1 ? <ThumbUpIcon /> : <ThumbDownIcon />}
+                                    </TableCell>  
+                                    <TableCell>
+                                        <ButtonGroup>
+                                        <Link to={"edit/"+product.id} >
+                                            <Button 
+                                                size="sm" 
+                                                variant="outline-danger" 
+                                            >
+                                                <EditIcon/>
+                                            </Button>
+                                        </Link>{' '}
+                                            <Button size="sm" variant="outline-danger" onClick={this.deleteProduct.bind(this,product.id)}><DeleteForeverIcon/></Button>
+                                        </ButtonGroup>    
+                                    </TableCell>      
+                                </TableRow>
+                            ))
+                        }
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        )
+    }
 }
