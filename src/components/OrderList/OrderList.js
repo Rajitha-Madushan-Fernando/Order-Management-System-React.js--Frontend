@@ -13,6 +13,7 @@ import PostAddIcon from '@material-ui/icons/PostAdd';
 import SearchIcon from '@material-ui/icons/Search';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import './OrderList.css'
 
 const useStyles = makeStyles({
@@ -65,6 +66,19 @@ export default class OrderList extends Component {
 
     render() {
         return (
+            <div>
+            <Link to={"NewOrder"} >
+            <Button
+                variant="contained"
+                color="secondary"
+                className="new-customer-add-button"
+                startIcon={<CloudUploadIcon />}
+                
+            >
+                New Order
+            </Button>
+            </Link>
+            <br /><br /><br />
             <TableContainer component={Paper}>
                 <Table className='order-table' aria-label="customized table">
                     <TableHead>
@@ -126,6 +140,7 @@ export default class OrderList extends Component {
                     </TableBody>
                 </Table>
             </TableContainer>
+            </div>
         )
     }
 }
