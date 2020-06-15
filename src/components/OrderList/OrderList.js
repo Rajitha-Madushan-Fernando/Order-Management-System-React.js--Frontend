@@ -2,7 +2,8 @@ import React, { Component } from "react";
 
 import {
     Button, Table, TableBody, TableCell,
-    TableContainer, TableHead, TableRow, Paper
+    TableContainer, TableHead, TableRow, Paper,
+    
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
@@ -14,6 +15,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import EditIcon from '@material-ui/icons/Edit';
 import './OrderList.css'
 
 const useStyles = makeStyles({
@@ -71,7 +73,7 @@ export default class OrderList extends Component {
             <Button
                 variant="contained"
                 color="secondary"
-                className="new-customer-add-button"
+                className="new-order-add-button"
                 startIcon={<CloudUploadIcon />}
                 
             >
@@ -103,7 +105,7 @@ export default class OrderList extends Component {
                                         <TableCell>{order.orderDate}</TableCell>
                                         <TableCell>{order.order_unique_id}</TableCell>
                                         <TableCell>{order.status === 1 ? <ThumbUpIcon /> : <ThumbDownIcon />}</TableCell>
-                                        <TableCell>
+                                        <TableCell style={{float:"right"}}>
                                             <Link to={"orderview/" + order.id} >
                                                 <Button
                                                     variant="contained"
@@ -113,6 +115,18 @@ export default class OrderList extends Component {
 
                                                 >
                                                     View
+                                                </Button>
+                                            </Link>
+                                            {" "}
+                                            <Link to={"UpdateOrder/" + order.id} >
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    size="small"
+                                                    startIcon={<EditIcon />}
+
+                                                >
+                                                    Edit
                                                 </Button>
                                             </Link>
                                             {" "}

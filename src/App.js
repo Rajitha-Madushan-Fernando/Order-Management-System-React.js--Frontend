@@ -24,6 +24,7 @@ import OrderView from './components/OrderView/OrderView';
 import OrderProductEdit from './components/OrderProductEdit/OrderProductEdit';
 import NewCustomer from './components/NewCustomer/NewCustomer';
 import NewProduct from './components/NewProduct/NewProduct';
+import NewOrder from './components/NewOrder/NewOrder';
 import ErrorPage from './components/ErrorPage/ErrorPage';
 
 
@@ -200,6 +201,8 @@ function App(props) {
             <Route exact path="/UpdateCustomer/:id" component={NewCustomer} />
             <Route exact path="/NewProduct" component={NewProduct} />
             <Route exact path="/UpdateProduct/:id" component={NewProduct} />
+            <Route exact path="/NewOrder" component={NewOrder} />
+            <Route exact path="/UpdateOrder/:id" component={NewOrder} />
             <Route component={ErrorPage} />
           </Switch>
         </main>
