@@ -2,8 +2,8 @@ import React, { Component } from "react";
 
 import {
     Button, TableRow, Paper, TextField, Grid, Form, Container, MenuItem, InputLabel, FormHelperText,
-    FormControl, Select,Table, TableBody, TableCell, TableContainer, TableHead,
-   
+    FormControl, Select, Table, TableBody, TableCell, TableContainer, TableHead,
+
 } from '@material-ui/core';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
@@ -24,15 +24,15 @@ export default class ProductToOrder extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            order_id: null,
-            product: 'null',
-            quanity: null,
+            order_id: this.props.match.params.id,
+            product: "",
+            quantity: null,
             productData: [],
             orderDetails: [],
             show: false,
             errors: {
-                product:'',
-                quanity:'',
+                product: '',
+                quantity: '',
             }
         }
         this.submitOrderProduct = this.submitOrderProduct.bind(this);
@@ -43,30 +43,31 @@ export default class ProductToOrder extends Component {
 
     handleInputChange(event) {
         const { value, name } = event.target;
-        console.log('value', value);
-        console.log('name', name);
+        console.log('name', name, 'value', value);
         this.setState({ [name]: value });
-    
-    
+
+
     }
 
     resetState() {
+        console.log('resetSate');
         this.setState({
-          id: null, product: null, quanity: null,
-        })
-      }
-    
-      resetErrorState() {
+            product: "", quantity: "",
+        });
+    }
+
+    resetErrorState() {
+        console.log('resetErrorState');
         this.setState({
-          errors: {
-            product:'',
-            quanity:'',
-          }
+            errors: {
+                product: '',
+                quantity: '',
+            }
         })
-      }
-      
+    }
+
     componentDidMount() {
-        const OrderId = this.props.match.params.id;
+        const OrderId = this.state.order_id;
         this.findAllProduct();
         //console.log('OrderId',OrderId);
         if (OrderId) {
@@ -77,26 +78,26 @@ export default class ProductToOrder extends Component {
 
     findOrderById = (OrderId) => {
         axios.get("http://localhost:9090/springboot/order/list/" + OrderId)
-    
-          .then(response => {
-            if (response.data != null) {
-              const {
-                id,
-                orderDetails,
-              } = response.data
-              this.setState({
-                order_id: id,
-                orderDetails: orderDetails
-    
-              });
-             
-            }
-    
-    
-          }).catch((error) => {
-            console.error("Error - " + error);
-          });
-      };
+
+            .then(response => {
+                if (response.data != null) {
+                    const {
+                        id,
+                        orderDetails,
+                    } = response.data
+                    this.setState({
+                        order_id: id,
+                        orderDetails: orderDetails
+
+                    });
+
+                }
+
+
+            }).catch((error) => {
+                console.error("Error - " + error);
+            });
+    };
 
     findAllProduct() {
         axios.get(`${baseUrl}/product/list/`)
@@ -108,7 +109,7 @@ export default class ProductToOrder extends Component {
 
     }
 
-  
+
 
     submitOrderProduct = event => {
         event.preventDefault();
@@ -116,23 +117,24 @@ export default class ProductToOrder extends Component {
         const order_product = {
             order_id: this.state.order_id,
             "product": {
-                "id": this.state.product
+                "id": utils.emptyToNull(this.state.product),
             },
             quantity: this.state.quantity
         };
         axios.post(`${baseUrl}/order-detail/add`, order_product)
             .then(response => {
-                
+
                 //this.setState({ "show": false });
                 utils.showSuccess("Product Saved Successfully.");
-                this.findOrderById();
+                this.findOrderById(this.state.order_id);
                 this.resetErrorState();
                 this.resetState();
+                
             })
             .catch(_errors => {
                 if (_errors.response) {
                     const { errors } = _errors.response.data;
-                    console.log('errors',errors);
+                    console.log('errors', errors);
                     let errorsObj = {}
                     errors.forEach(error => {
                         const { defaultMessage, field } = error
@@ -142,11 +144,13 @@ export default class ProductToOrder extends Component {
                     this.setState({ errors: errorsObj });
                 }
             });
+
+
     };
 
 
     render() {
-        const { productData,orderDetails } = this.state;
+        const { productData, orderDetails } = this.state;
         return (
             <div>
                 <Grid container spacing={6}>
@@ -164,37 +168,40 @@ export default class ProductToOrder extends Component {
                                     margin="normal"
                                     InputLabelProps={{
                                         shrink: true,
-                                        
+
                                     }}
                                     InputProps={{
-                                         readOnly: true,
+                                        readOnly: true,
                                     }}
                                     variant="outlined"
                                 />
                                 <br /><br />
+                                
                                 <InputLabel shrink id="demo-simple-select-placeholder-label-label">
                                     Product Name
-            </InputLabel>
-                                <Select
-                                    variant="outlined"
-                                    name="product"
-                                    value={this.state.product}
-                                    labelId="demo-simple-select-autowidth-label"
-                                    id="demo-simple-select-autowidth"
-                                    onChange={this.handleInputChange}
-                                    fullWidth
-                                >
-                                    <MenuItem value="" >
-                                        --Select Product--
-                                    </MenuItem>
-                                    {
-                                        productData.map((eachRow, index) => {
-                                            return (
-                                                <MenuItem value={eachRow.id}>{eachRow.name}</MenuItem>);
-                                        })
-                                    }
-                                </Select>
+                                  </InputLabel>
+                                   
+                                    <Select
+                                        variant="outlined"
+                                        name="product"
+                                        value={this.state.product}
+                                        labelId="demo-simple-select-autowidth-label"
+                                        id="demo-simple-select-autowidth"
+                                        onChange={this.handleInputChange}
+                                        fullWidth
+                                    >
+                                        <MenuItem value='' >
+                                            --Select Product--
+                                        </MenuItem>
+                                        {
+                                            productData.map((eachRow, index) => {
+                                                return (
+                                                    <MenuItem value={eachRow.id} key={eachRow.id}>{eachRow.name}</MenuItem>);
+                                            })
+                                        }
+                                    </Select>
                                 <FormHelperText>{this.state.errors.product}</FormHelperText>
+                                   
                                 <br /><br />
                                 <TextField
                                     name="quantity"
@@ -228,7 +235,7 @@ export default class ProductToOrder extends Component {
                                     variant="contained"
                                     color="primary"
                                     endIcon={<RotateLeftIcon />}
-                                    onClick={this.resetErrorState}
+                                    onClick={(e) => { e.preventDefault(); this.resetErrorState(); this.resetState(); }}
                                 >
                                     Reset</Button>
                             </form>
@@ -236,45 +243,45 @@ export default class ProductToOrder extends Component {
                     </Grid>
                     <Grid item xs={8}>
                         <Paper>
-                        <TableContainer component={Paper}>
-                            <Table aria-label="customized table" className="order-product-table">
-                                <TableHead>
-                                    <TableRow style={{ backgroundColor: '#00bcd4', color: '#fafafa' }} variant="head">
-                                    <TableCell>Product Name</TableCell>
-                                    <TableCell>Code</TableCell>
-                                    <TableCell>Price</TableCell>
-                                    <TableCell>Required Quanity</TableCell>
-                                    <TableCell></TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
+                            <TableContainer component={Paper}>
+                                <Table aria-label="customized table" className="order-product-table">
+                                    <TableHead>
+                                        <TableRow style={{ backgroundColor: '#00bcd4', color: '#fafafa' }} variant="head">
+                                            <TableCell>Product Name</TableCell>
+                                            <TableCell>Code</TableCell>
+                                            <TableCell>Price</TableCell>
+                                            <TableCell>Required Quanity</TableCell>
+                                            <TableCell></TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
 
-                                    {orderDetails.map((eachRow, index) => {
+                                        {orderDetails.map((eachRow, index) => {
 
-                                    return (<TableRow key={index}>
-                                        <TableCell>{eachRow.product.name}</TableCell>
-                                        <TableCell>{eachRow.product.product_code}</TableCell>
-                                        <TableCell>{eachRow.product.price}</TableCell>
-                                        <TableCell>{eachRow.quantity}</TableCell>
-                                        <TableCell>
-                                        <Link to={"../EditProductToOrder/" + eachRow.id} >
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            size="small"
-                                            startIcon={<UpdateIcon />}
-                                        
-                                        >
-                                            Update
+                                            return (<TableRow key={index}>
+                                                <TableCell>{eachRow.product.name}</TableCell>
+                                                <TableCell>{eachRow.product.product_code}</TableCell>
+                                                <TableCell>{eachRow.product.price}</TableCell>
+                                                <TableCell>{eachRow.quantity}</TableCell>
+                                                <TableCell>
+                                                    <Link to={"../EditProductToOrder/" + eachRow.id} >
+                                                        <Button
+                                                            variant="contained"
+                                                            color="primary"
+                                                            size="small"
+                                                            startIcon={<UpdateIcon />}
+
+                                                        >
+                                                            Update
                                         </Button>
-                                        </Link>
+                                                    </Link>
 
-                                        </TableCell>
-                                    </TableRow>
-                                    )
-                                    }, []
-                                    )}
-                                </TableBody>
+                                                </TableCell>
+                                            </TableRow>
+                                            )
+                                        }, []
+                                        )}
+                                    </TableBody>
                                 </Table>
                             </TableContainer>
                         </Paper>

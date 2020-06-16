@@ -21,6 +21,9 @@ const utils = {
         //toast(msg)
         console.log('Message',msg);
     },
+    emptyToNull: (value) => {
+        return value==''?null:value;
+    },
     //  10 => 10.00
     numberFormat: (rowNumber, withDecimal = true) => {
         if (withDecimal) {
