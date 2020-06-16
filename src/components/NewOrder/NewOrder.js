@@ -21,6 +21,7 @@ const { baseUrl } = appConfig;
 
 export default class NewOrder extends Component {
 
+
     constructor(props) {
         super(props);
         this.state = {
@@ -30,11 +31,20 @@ export default class NewOrder extends Component {
             remarks: null,
             status: null,
             show: false,
-            customerData: []
+            customerData: [],
+            errors: {
+                order_unique_id: '',
+                orderDate: '',
+                customer: '',
+                remarks: '',
+                status: '',
+            }
 
         }
         this.submitOrder = this.submitOrder.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.resetErrorState = this.resetErrorState.bind(this);
+
     };
 
 
@@ -45,6 +55,24 @@ export default class NewOrder extends Component {
         this.setState({ [name]: value });
 
 
+    }
+
+    resetState() {
+        this.setState({
+            oid: null, date: null, customer_id: null, remarks: null, status: null
+        })
+    }
+
+    resetErrorState() {
+        this.setState({
+            errors: {
+                order_unique_id: '',
+                orderDate: '',
+                customer: '',
+                remarks: '',
+                status: '',
+            }
+        })
     }
 
     componentDidMount() {
@@ -92,16 +120,18 @@ export default class NewOrder extends Component {
             id: this.state.id,
             order_unique_id: this.state.oid,
             orderDate: this.state.date,
-            "customer" : {
-                "id" :  this.state.customer_id
+            "customer": {
+                "id": this.state.customer_id
             },
             remarks: this.state.remarks,
             status: this.state.status
         };
 
-        axios.put(`${baseUrl}/order/add/`, order)
-            .then(response => {
+        axios.post(`${baseUrl}/order/add/`, order)
 
+            .then(response => {
+                console.log('id', this.state.id);
+                this.props.history.push('/ProductToOrder/' + this.state.id);
                 if (response.data != null) {
                     this.setState({ "show": true, "method": "put" });
                 }
@@ -118,14 +148,16 @@ export default class NewOrder extends Component {
         const order = {
             order_unique_id: this.state.oid,
             orderDate: this.state.date,
-            "customer" : {
-                "id" :  this.state.customer_id
+            "customer": {
+                "id": this.state.customer_id
             },
             remarks: this.state.remarks,
             status: this.state.status
         };
         axios.post(`${baseUrl}/order/add`, order)
             .then(response => {
+                console.log('response', response);
+                this.props.history.push('/ProductToOrder/' + response.data.id);
                 //console.log('orderData',response);
                 //this.setState({ "show": false });
                 utils.showSuccess("Order Saved Successfully.");
@@ -134,21 +166,21 @@ export default class NewOrder extends Component {
                 this.resetState();
             })
             .catch(_errors => {
-                // if (_errors.response) {
-                //     const { errors } = _errors.response.data;
-                //     let errorsObj = {}
-                //     errors.forEach(error => {
-                //         const { defaultMessage, field } = error
-                //         errorsObj[field] = defaultMessage;
-                //     })
-                //     console.log(errorsObj);
-                //     this.setState({ errors: errorsObj });
-                // }
+                if (_errors.response) {
+                  const { errors } = _errors.response.data;
+                  let errorsObj = {}
+                  errors.forEach(error => {
+                    const { defaultMessage, field } = error
+                    errorsObj[field] = defaultMessage;
+                  })
+                  console.log(errorsObj);
+                  this.setState({ errors: errorsObj });
+                }
             });
     };
 
     render() {
-        const { customerData,customer_id } = this.state;
+        const { customerData } = this.state;
         return (
             <div>
                 <div style={{ "display": this.state.show ? "block" : "none" }}>
@@ -163,7 +195,7 @@ export default class NewOrder extends Component {
                             label="Order ID"
                             style={{ margin: 2 }}
                             placeholder="Enter Order ID"
-                            helperText="This field is required"
+                            helperText={this.state.errors.order_unique_id}
                             fullWidth
                             onChange={this.handleInputChange}
                             margin="normal"
@@ -181,7 +213,7 @@ export default class NewOrder extends Component {
                             label="Order Date"
                             style={{ margin: 2 }}
                             placeholder="Enter date"
-                            helperText="This field is required"
+                            helperText={this.state.errors.orderDate}
                             fullWidth
                             margin="normal"
                             InputLabelProps={{
@@ -190,19 +222,21 @@ export default class NewOrder extends Component {
                             variant="outlined"
                         />
                         <br /><br />
-
+                        <InputLabel shrink id="demo-simple-select-placeholder-label-label">
+                        Customer Name
+                        </InputLabel>    
                         <Select
                             variant="outlined"
                             name="customer_id"
                             value={this.state.customer_id}
                             labelId="demo-simple-select-autowidth-label"
                             id="demo-simple-select-autowidth"
-                            
+
                             onChange={this.handleInputChange}
                             fullWidth
                         >
-                            <MenuItem value=""  selected="selected">
-                                Placeholder
+                            <MenuItem value="" selected="selected">
+                                --Select Product--
                             </MenuItem>
                             {
                                 customerData.map((eachRow, index) => {
@@ -211,7 +245,7 @@ export default class NewOrder extends Component {
                                 })
                             }
                         </Select>
-                        <FormHelperText>This field is required</FormHelperText>
+                        <FormHelperText>{this.state.errors.customer}</FormHelperText>
                         <br />
                         <TextField
                             name="remarks"
@@ -221,7 +255,7 @@ export default class NewOrder extends Component {
                             label="Order Remarks"
                             style={{ margin: 2 }}
                             placeholder="Enter order remarks"
-                            helperText="This field is required"
+                            helperText={this.state.errors.remarks}
                             fullWidth
                             margin="normal"
                             InputLabelProps={{
@@ -230,6 +264,9 @@ export default class NewOrder extends Component {
                             variant="outlined"
                         />
                         <br /><br />
+                        <InputLabel shrink id="demo-simple-select-placeholder-label-label">
+                        Order Status
+                        </InputLabel>    
                         <Select
                             variant="outlined"
                             name="status"
@@ -247,7 +284,7 @@ export default class NewOrder extends Component {
                             <MenuItem value={1}>Active</MenuItem>
                             <MenuItem value={0}>Inactive</MenuItem>
                         </Select>
-                        <FormHelperText>This field is required</FormHelperText>
+                        <FormHelperText>{this.state.errors.status}</FormHelperText>
                         <br /><br />
                         <Button
                             type="submit"

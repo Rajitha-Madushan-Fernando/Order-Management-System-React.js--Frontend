@@ -130,6 +130,7 @@ export default class OrderList extends Component {
                                                 </Button>
                                             </Link>
                                             {" "}
+                                            <Link to={"ProductToOrder/" + order.id} >
                                             <Button
                                                 variant="contained"
                                                 color="default"
@@ -137,7 +138,8 @@ export default class OrderList extends Component {
                                                 startIcon={<PostAddIcon />}
                                             >
                                                 Add products
-                                        </Button>
+                                            </Button>
+                                            </Link>
                                             {" "}
                                             <Button
                                                 variant="contained"
