@@ -25,19 +25,20 @@ export default class ProductToOrder extends Component {
         super(props);
         this.state = {
             order_id: null,
-            product: null,
+            product: 'null',
             quanity: null,
             productData: [],
             orderDetails: [],
             show: false,
-            
             errors: {
-
+                product:'',
+                quanity:'',
             }
         }
         this.submitOrderProduct = this.submitOrderProduct.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
-        
+        this.resetErrorState = this.resetErrorState.bind(this);
+
     };
 
     handleInputChange(event) {
@@ -49,6 +50,20 @@ export default class ProductToOrder extends Component {
     
     }
 
+    resetState() {
+        this.setState({
+          id: null, product: null, quanity: null,
+        })
+      }
+    
+      resetErrorState() {
+        this.setState({
+          errors: {
+            product:'',
+            quanity:'',
+          }
+        })
+      }
       
     componentDidMount() {
         const OrderId = this.props.match.params.id;
@@ -74,8 +89,7 @@ export default class ProductToOrder extends Component {
                 orderDetails: orderDetails
     
               });
-              // this.setState({orderDetails:orderDetails})
-              
+             
             }
     
     
@@ -94,13 +108,13 @@ export default class ProductToOrder extends Component {
 
     }
 
-    
+  
 
     submitOrderProduct = event => {
         event.preventDefault();
 
         const order_product = {
-            order_id: this.props.match.params.id,
+            order_id: this.state.order_id,
             "product": {
                 "id": this.state.product
             },
@@ -118,6 +132,7 @@ export default class ProductToOrder extends Component {
             .catch(_errors => {
                 if (_errors.response) {
                     const { errors } = _errors.response.data;
+                    console.log('errors',errors);
                     let errorsObj = {}
                     errors.forEach(error => {
                         const { defaultMessage, field } = error
@@ -144,7 +159,6 @@ export default class ProductToOrder extends Component {
                                     id="outlined-full-width"
                                     label="Order ID"
                                     style={{ margin: 2 }}
-                                    helperText={this.state.errors.order_id}
                                     fullWidth
                                     onChange={this.handleInputChange}
                                     margin="normal"
@@ -170,7 +184,7 @@ export default class ProductToOrder extends Component {
                                     onChange={this.handleInputChange}
                                     fullWidth
                                 >
-                                    <MenuItem value="" selected="selected">
+                                    <MenuItem value="" >
                                         --Select Product--
                                     </MenuItem>
                                     {
@@ -243,7 +257,7 @@ export default class ProductToOrder extends Component {
                                         <TableCell>{eachRow.product.price}</TableCell>
                                         <TableCell>{eachRow.quantity}</TableCell>
                                         <TableCell>
-                                        <Link to={"OrderProductEdit/" + eachRow.id} >
+                                        <Link to={"../EditProductToOrder/" + eachRow.id} >
                                         <Button
                                             variant="contained"
                                             color="primary"

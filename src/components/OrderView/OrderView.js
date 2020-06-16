@@ -188,7 +188,7 @@ export default class OrderView extends Component {
                     <TableCell>{eachRow.product.price}</TableCell>
                     <TableCell>{eachRow.quantity}</TableCell>
                     <TableCell>
-                    <Link to={"OrderProductEdit/" + eachRow.id} >
+                    <Link to={"/EditProductToOrder/" + eachRow.id} >
                       <Button
                         variant="contained"
                         color="primary"
