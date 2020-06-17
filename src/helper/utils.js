@@ -11,6 +11,7 @@ const utils = {
     },
     showError: (msg) => {
         /////////toast(msg)
+        console.error('Error Message',msg);
     },
     showMsg: (msg) => {
         //toast(msg)

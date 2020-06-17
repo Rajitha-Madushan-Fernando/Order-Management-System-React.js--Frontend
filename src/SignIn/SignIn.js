@@ -27,13 +27,21 @@ export default class SignIn extends Component {
     }
     this.submitUser = this.submitUser.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-   
+
   };
+
+  resetErrorState() {
+    this.setState({
+      errors: {
+        username: '',
+        password: '',
+      }
+    })
+  }
+
 
   handleInputChange(event) {
     const { value, name } = event.target;
-    console.log('value', value);
-    console.log('name', name);
     this.setState({ [name]: value });
 
 
@@ -50,23 +58,27 @@ export default class SignIn extends Component {
     axios.post(`${baseUrl}/api/auth/signin`, user)
       .then(response => {
         console.log('response');
-        tokens.save({'userType':'user', 'token': response.data.accessToken});
-        //this.setState({ "show": false });
-        //utils.showSuccess("User Successfully login.");
-
+        tokens.save({ 'userType': 'user', 'token': response.data.accessToken });
         this.resetErrorState();
-        this.resetState();
       })
       .catch(_errors => {
         if (_errors.response) {
-          const { errors } = _errors.response.data;
-          let errorsObj = {}
-          errors.forEach(error => {
-            const { defaultMessage, field } = error
-            errorsObj[field] = defaultMessage;
-          })
-          console.log(errorsObj);
-          this.setState({ errors: errorsObj });
+          const { status, data } = _errors.response;
+          console.log('_errors.response', _errors.response);
+          if (status == 401) {
+            console.log('data.error', data.error);
+            utils.showError("Bad Credintials");
+          }
+          else {
+            let errorsObj = {}
+            data.errors.forEach(error => {
+              const { defaultMessage, field } = error
+              errorsObj[field] = defaultMessage;
+            })
+            console.log(errorsObj);
+            this.setState({ errors: errorsObj });
+          }
+
         }
       });
   };
@@ -84,7 +96,7 @@ export default class SignIn extends Component {
               label="User Name"
               style={{ margin: 2 }}
               placeholder="Enter Username"
-              //helperText={this.state.errors.name}
+              helperText={this.state.errors.username}
               fullWidth
               onChange={this.handleInputChange}
               margin="normal"
@@ -101,7 +113,7 @@ export default class SignIn extends Component {
               label="Password"
               style={{ margin: 2 }}
               placeholder="Enter Password"
-              //helperText={this.state.errors.product_code}
+              helperText={this.state.errors.password}
               fullWidth
               margin="normal"
               InputLabelProps={{
@@ -110,7 +122,7 @@ export default class SignIn extends Component {
               variant="outlined"
             />
             <br /><br />
-          
+
             <Button
               type="submit"
               variant="contained"
