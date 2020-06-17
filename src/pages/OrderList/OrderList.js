@@ -5,7 +5,6 @@ import {
     TableContainer, TableHead, TableRow, Paper,
     
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
@@ -18,11 +17,10 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import EditIcon from '@material-ui/icons/Edit';
 import './OrderList.css'
 
-const useStyles = makeStyles({
-    table: {
-        minWidth: 650,
-    },
-});
+import { appConfig } from '../../configs/app.config';
+import utils from '../../helper/utils';
+const { baseUrl } = appConfig;
+
 
 
 
@@ -40,7 +38,7 @@ export default class OrderList extends Component {
     }
 
     findAllOrder() {
-        axios.get("http://localhost:9090/springboot/order/list")
+        axios.get(`${baseUrl}/order/list/`)
             /** .then(response => console.log(response.data));*/
             .then(response => response.data)
             .then((data) => {
@@ -49,7 +47,7 @@ export default class OrderList extends Component {
     }
 
     deleteOrder = (orderId) => {
-        axios.delete("http://localhost:9090/springboot/order/delete/" + orderId)
+        axios.delete(`${baseUrl}/order/delete/` + orderId)
             .then(response => {
                 if (response.data != null) {
                     this.setState({ "show": true });

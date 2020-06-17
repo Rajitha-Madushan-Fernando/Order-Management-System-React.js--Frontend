@@ -4,7 +4,6 @@ import {
     Button , ButtonGroup,Table,TableBody,TableCell,TableContainer,TableHead,
     TableRow,Paper
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
@@ -13,12 +12,11 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 
+import { appConfig } from '../../configs/app.config';
+import utils from '../../helper/utils';
+const { baseUrl } = appConfig;
 
-const useStyles = makeStyles({
-    table: {
-      minWidth: 650,
-    },
-});
+
 
 
 
@@ -36,7 +34,7 @@ export default class OrderProductEdit extends Component{
     }
 
     findAllProduct(){
-        axios.get("http://localhost:9090/springboot/product/list")
+        axios.get(`${baseUrl}/product/list/`)
         /** .then(response => console.log(response.data));*/
         .then(response => response.data)
         .then((data) => {
@@ -45,7 +43,7 @@ export default class OrderProductEdit extends Component{
     }
 
     deleteProduct = (productId) => {
-        axios.delete("http://localhost:9090/springboot/product/delete/"+productId)
+        axios.delete(`${baseUrl}/product/delete/`+productId)
         .then(response => {
             if( response.data != null){
                 this.setState({"show":true});

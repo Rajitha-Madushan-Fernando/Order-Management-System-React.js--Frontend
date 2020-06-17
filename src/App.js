@@ -1,11 +1,9 @@
 import React from "react";
-import PropTypes from 'prop-types';
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import {
   Drawer, List, ListItem,
-  ListItemIcon, ListItemText,
-  Container, AppBar, Toolbar,
+  ListItemIcon, ListItemText, AppBar, Toolbar,
   IconButton, Typography, CssBaseline,
   Hidden,Divider
 } from '@material-ui/core';
@@ -62,9 +60,7 @@ const useStyles = makeStyles((theme) => ({
   },
   // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
-  drawerPaper: {
-    width: drawerWidth,
-  },
+ 
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),

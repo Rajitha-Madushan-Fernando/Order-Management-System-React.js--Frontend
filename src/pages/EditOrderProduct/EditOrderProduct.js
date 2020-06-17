@@ -1,17 +1,13 @@
 import React, { Component } from "react";
 
 import {
-    Button, TableRow, Paper, TextField, Grid, Form, Container, MenuItem, InputLabel, FormHelperText,
-    FormControl, Select, Table, TableBody, TableCell, TableContainer, TableHead,
+    Button, TextField,Container, MenuItem, InputLabel, FormHelperText,
+    Select
 
 } from '@material-ui/core';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
-import UpdateIcon from '@material-ui/icons/Update';
 import SendIcon from '@material-ui/icons/Send';
-import CustomMessage from '../CustomMessage/CustomMessage';
 
 import utils from '../../helper/utils';
 import { appConfig } from '../../configs/app.config';
@@ -144,7 +140,7 @@ export default class EditOrderProduct extends Component {
         this.setState(this.initialState);
     };
     render() {
-        const { productData,order_id} = this.state;
+        const { productData} = this.state;
         return (
             <div>
                 <Container maxWidth="sm" style={{ float: "left" }}>

@@ -1,32 +1,24 @@
 import React, { Component } from "react";
 import {
-  Card, Button, ButtonGroup, CardActions, CardContent, Typography,
+  Card, Button, CardActions, CardContent, Typography,
   Table, TableBody, TableCell, TableContainer, TableHead,
   TableRow, Paper, Grid
 
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import UpdateIcon from '@material-ui/icons/Update';
 import './OrderView.css' 
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
+import { appConfig } from '../../configs/app.config';
+import utils from '../../helper/utils';
+const { baseUrl } = appConfig;
 
-}));
+
+
 
 export default class OrderView extends Component {
 
@@ -49,15 +41,13 @@ export default class OrderView extends Component {
   }
 
   findOrderById = (singleOrderId) => {
-    axios.get("http://localhost:9090/springboot/order/list/" + singleOrderId)
+    axios.get(`${baseUrl}/order/list/` + singleOrderId)
 
       .then(response => {
         if (response.data != null) {
           const {
             id,
             customer,
-            customer_address,
-            customer_email,
             order_unique_id,
             remarks,
             status,

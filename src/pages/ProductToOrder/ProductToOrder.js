@@ -1,17 +1,15 @@
 import React, { Component } from "react";
 
 import {
-    Button, TableRow, Paper, TextField, Grid, Form, Container, MenuItem, InputLabel, FormHelperText,
-    FormControl, Select, Table, TableBody, TableCell, TableContainer, TableHead,
+    Button, TableRow, Paper, TextField, Grid, Container, MenuItem, InputLabel, FormHelperText,
+    Select, Table, TableBody, TableCell, TableContainer, TableHead,
 
 } from '@material-ui/core';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 import UpdateIcon from '@material-ui/icons/Update';
 import SendIcon from '@material-ui/icons/Send';
-import CustomMessage from '../CustomMessage/CustomMessage';
 
 import utils from '../../helper/utils';
 import { appConfig } from '../../configs/app.config';
@@ -77,7 +75,7 @@ export default class ProductToOrder extends Component {
     }
 
     findOrderById = (OrderId) => {
-        axios.get("http://localhost:9090/springboot/order/list/" + OrderId)
+        axios.get(`${baseUrl}/order/list/` + OrderId)
 
             .then(response => {
                 if (response.data != null) {

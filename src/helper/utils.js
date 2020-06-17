@@ -1,6 +1,5 @@
 //import { toast } from 'react-toastify';
 import numeral from 'numeral';
-import React from 'react';
 
 // toast.configure();
 const utils = {
@@ -22,7 +21,7 @@ const utils = {
         console.log('Message',msg);
     },
     emptyToNull: (value) => {
-        return value==''?null:value;
+        return value === ''?null:value;
     },
     //  10 => 10.00
     numberFormat: (rowNumber, withDecimal = true) => {

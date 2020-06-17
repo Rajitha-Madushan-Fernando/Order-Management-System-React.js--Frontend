@@ -1,24 +1,21 @@
 import React, { Component } from "react";
 
 import {
-    Card, Button, ButtonGroup,
+    Button, ButtonGroup,
     Table, TableBody, TableCell,
     TableContainer, TableHead, TableRow, Paper
 } from '@material-ui/core';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-import ListIcon from '@material-ui/icons/List';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import './CustomerList.css' 
-const useStyles = makeStyles({
-    table: {
-        minWidth: 700,
-    },
-});
+
+import { appConfig } from '../../configs/app.config';
+import utils from '../../helper/utils';
+const { baseUrl } = appConfig;
 
 
 export default class CustomerList extends Component {
@@ -35,7 +32,7 @@ export default class CustomerList extends Component {
     }
 
     findAllCustomers() {
-        axios.get("http://localhost:9090/springboot/customer/list")
+        axios.get(`${baseUrl}/customer/list/`)
             /** .then(response => console.log(response.data));*/
             .then(response => response.data)
             .then((data) => {
@@ -44,7 +41,7 @@ export default class CustomerList extends Component {
     }
 
     deleteCustomer = (customerId) => {
-        axios.delete("http://localhost:9090/springboot/customer/delete/" + customerId)
+        axios.delete(`${baseUrl}/customer/delete/` + customerId)
             .then(response => {
                 if (response.data != null) {
                     this.setState({ "show": true });
