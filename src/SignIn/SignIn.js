@@ -1,117 +1,128 @@
-import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+import React, { Component } from "react";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import {
+  Button, TextField, Container, MenuItem, InputLabel, FormHelperText, Select
+} from '@material-ui/core';
+import axios from 'axios';
+import SendIcon from '@material-ui/icons/Send';
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
+import utils from '../helper/utils';
+import { appConfig } from '../configs/app.config';
+import tokens from "../helper/tokens";
+const { baseUrl } = appConfig;
 
-export default function SignIn() {
-  const classes = useStyles();
 
-  return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
-        </form>
+export default class SignIn extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: "",
+      password: null,
+      show: false,
+      errors: {
+        username: '',
+        password: '',
+      }
+    }
+    this.submitUser = this.submitUser.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+   
+  };
+
+  handleInputChange(event) {
+    const { value, name } = event.target;
+    console.log('value', value);
+    console.log('name', name);
+    this.setState({ [name]: value });
+
+
+  }
+
+
+  submitUser = event => {
+    event.preventDefault();
+
+    const user = {
+      username: this.state.username,
+      password: this.state.password,
+    };
+    axios.post(`${baseUrl}/api/auth/signin`, user)
+      .then(response => {
+        console.log('response');
+        tokens.save({'userType':'user', 'token': response.data.accessToken});
+        //this.setState({ "show": false });
+        //utils.showSuccess("User Successfully login.");
+
+        this.resetErrorState();
+        this.resetState();
+      })
+      .catch(_errors => {
+        if (_errors.response) {
+          const { errors } = _errors.response.data;
+          let errorsObj = {}
+          errors.forEach(error => {
+            const { defaultMessage, field } = error
+            errorsObj[field] = defaultMessage;
+          })
+          console.log(errorsObj);
+          this.setState({ errors: errorsObj });
+        }
+      });
+  };
+
+
+  render() {
+
+    return (
+      <div>
+        <Container maxWidth="sm">
+          <form onSubmit={this.submitUser} >
+            <TextField
+              name="username"
+              id="outlined-full-width"
+              label="User Name"
+              style={{ margin: 2 }}
+              placeholder="Enter Username"
+              //helperText={this.state.errors.name}
+              fullWidth
+              onChange={this.handleInputChange}
+              margin="normal"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="outlined"
+            />
+            <br /><br />
+            <TextField
+              name="password"
+              onChange={this.handleInputChange}
+              id="outlined-full-width"
+              label="Password"
+              style={{ margin: 2 }}
+              placeholder="Enter Password"
+              //helperText={this.state.errors.product_code}
+              fullWidth
+              margin="normal"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="outlined"
+            />
+            <br /><br />
+          
+            <Button
+              type="submit"
+              variant="contained"
+              color="secondary"
+              startIcon={<SendIcon />}
+            >
+              Login
+            </Button>
+          </form>
+        </Container>
       </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
-    </Container>
-  );
+    )
+  }
 }
+

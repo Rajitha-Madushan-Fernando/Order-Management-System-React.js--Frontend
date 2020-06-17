@@ -19,7 +19,7 @@ export default class NewProduct extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: null,
+      name: "",
       product_code: null,
       price: null,
       unit: null,
