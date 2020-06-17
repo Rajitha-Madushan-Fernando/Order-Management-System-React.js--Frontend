@@ -176,7 +176,6 @@ export default class ProductToOrder extends Component {
                                     variant="outlined"
                                 />
                                 <br /><br />
-                                
                                 <InputLabel shrink id="demo-simple-select-placeholder-label-label">
                                     Product Name
                                   </InputLabel>

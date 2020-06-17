@@ -16,18 +16,18 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
 
-import CustomerList from './components/CustomerList/CustomerList';
-import ProductList from './components/ProductList/ProductList';
-import HomePage from './components/HomePage/HomePage';
-import OrderList from './components/OrderList/OrderList';
-import OrderView from './components/OrderView/OrderView';
-import OrderProductEdit from './components/OrderProductEdit/OrderProductEdit';
-import NewCustomer from './components/NewCustomer/NewCustomer';
-import NewProduct from './components/NewProduct/NewProduct';
-import NewOrder from './components/NewOrder/NewOrder';
-import ProductToOrder from './components/ProductToOrder/ProductToOrder';
-import EditOrderProduct from './components/EditOrderProduct/EditOrderProduct';
-import ErrorPage from './components/ErrorPage/ErrorPage';
+import CustomerList from './pages/CustomerList/CustomerList';
+import ProductList from './pages/ProductList/ProductList';
+import HomePage from './pages/HomePage/HomePage';
+import OrderList from './pages/OrderList/OrderList';
+import OrderView from './pages/OrderView/OrderView';
+import OrderProductEdit from './pages/OrderProductEdit/OrderProductEdit';
+import NewCustomer from './pages/NewCustomer/NewCustomer';
+import NewProduct from './pages/NewProduct/NewProduct';
+import NewOrder from './pages/NewOrder/NewOrder';
+import ProductToOrder from './pages/ProductToOrder/ProductToOrder';
+import EditOrderProduct from './pages/EditOrderProduct/EditOrderProduct';
+import ErrorPage from './pages/ErrorPage/ErrorPage';
 
 
 
