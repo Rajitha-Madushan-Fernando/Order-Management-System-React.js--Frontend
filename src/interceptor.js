@@ -9,7 +9,7 @@ export const interceptor =  function(excludeUrl, cb) {
     console.log('init');
     axios.interceptors.request.use((request) => { 
       console.log('request',request);
-        cb(false)
+        cb({loader:false, redirectTo:''})
         const urlObj = new URL(request.url);
         if(excludeUrl.indexOf(urlObj.pathname)<0){
             const token = tokens.get('token');
@@ -30,11 +30,11 @@ export const interceptor =  function(excludeUrl, cb) {
         (response) => {
             console.log('response', response);
             // Return a successful response back to the calling service
-            cb(true) 
+            cb({loader:true, redirectTo:''})
             return response;
         },
         (error) => {
-            // console.log('error.response',error);
+            
             // Return any error which is not due to authentication back to the calling service
             if (error.response.status !== 401) {
                 return new Promise((resolve, reject) => {
@@ -42,7 +42,11 @@ export const interceptor =  function(excludeUrl, cb) {
                 });
             }
             else {
-                console.log('this si auth fail');
+                console.log('error.response',error.response);
+                console.log('Index of message',error.response.data.path.indexOf("api/auth/signin"));
+                if(error.response.data.path.indexOf("api/auth/signin") < 0){ 
+                    cb({loader:true, redirectTo:'/SignIn'})
+                }
                 return new Promise((resolve, reject) => {
                     reject(error);
                 });

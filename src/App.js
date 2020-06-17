@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from 'react-router-dom';
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import {
@@ -28,6 +29,7 @@ import EditOrderProduct from './pages/EditOrderProduct/EditOrderProduct';
 import ErrorPage from './pages/ErrorPage/ErrorPage';
 
 import SignIn from './SignIn/SignIn';
+import SignUp from './SignUp/SignUp';
 import {interceptor} from './interceptor'; 
 
 const drawerWidth = 240;
@@ -70,13 +72,16 @@ const useStyles = makeStyles((theme) => ({
 
 
 function App(props) {
-  
-
-  useEffect(() => {
-    console.log('mounted');
+  const history = useHistory();
+  console.log('history',history);
+  const [count, setCount] = useState(0);
+  useEffect(() => { 
     const authExList = []
-    interceptor(authExList, (isHideSpinner)=>{ console.log('hello'); })
-    console.log('mounted2');
+    interceptor(authExList, (data)=>{ 
+      if(data.redirectTo!='') {
+        //history.push(data.redirectTo)
+      }
+    });
   });
 
 
@@ -215,9 +220,11 @@ function App(props) {
             <Route exact path="/UpdateOrder/:id" component={NewOrder} />
             <Route exact path="/ProductToOrder/:id" component={ProductToOrder} />
             <Route exact path="/EditProductToOrder/:id" component={EditOrderProduct} />
-            <Route exact path="/SignIn" component={SignIn} />
+            <Route  path="/SignIn" component={SignIn} />
+            <Route  path="/SignUp" component={SignUp} />
             <Route component={ErrorPage} />
           </Switch>
+          
         </main>
         
       </div>
