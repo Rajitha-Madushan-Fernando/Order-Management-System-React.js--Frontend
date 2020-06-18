@@ -18,6 +18,7 @@ import axios from 'axios';
 import utils from '../helper/utils';
 import { appConfig } from '../configs/app.config';
 import tokens from "../helper/tokens";
+import SystemUser from "../helper/user";
 const { baseUrl } = appConfig;
 
 
@@ -68,8 +69,17 @@ class SignIn extends Component {
       }
     }
     this.submitUser = this.submitUser.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
    
   };
+
+  handleInputChange(event) {
+    const { value, name } = event.target;
+    this.setState({ [name]: value });
+
+
+  }
+
 
   resetErrorState() {
     this.setState({
@@ -85,6 +95,7 @@ class SignIn extends Component {
 
 
   submitUser = event => {
+    //userh.get()
     event.preventDefault();
 
     const user = {
@@ -95,6 +106,7 @@ class SignIn extends Component {
       .then(response => {
         console.log('response');
         tokens.save({ 'userType': 'user', 'token': response.data.accessToken });
+        SystemUser.save(response.data.userData);
         this.props.history.push('/');
       })
       .catch(_errors => {
@@ -143,6 +155,7 @@ class SignIn extends Component {
               style={{ margin: 2 }}
               placeholder="Enter Username"
               helperText={this.state.errors.username}
+              onChange={this.handleInputChange}
               fullWidth
               margin="normal"
               variant="outlined"
@@ -159,6 +172,7 @@ class SignIn extends Component {
               helperText={this.state.errors.password}
               fullWidth
               margin="normal"
+              onChange={this.handleInputChange}
               variant="outlined"
             />
           <FormControlLabel

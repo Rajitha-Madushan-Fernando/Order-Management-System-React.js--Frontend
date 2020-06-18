@@ -1,24 +1,53 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { Component } from 'react';
 import Alert from '@material-ui/lab/Alert';
+import SystemUser from "../../helper/user";
+import { appConfig } from '../../configs/app.config';
+import utils from '../../helper/utils';
+const { baseUrl } = appConfig;
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-    '& > * + *': {
-      marginTop: theme.spacing(2),
-    },
-  },
-}));
 
-export default function SimpleAlerts() {
-  const classes = useStyles();
+export default class HomePage extends Component {
 
-  return (
-    <div className={classes.root}>
-      <Alert variant="filled" severity="success">
-        This is a home page
-      </Alert>
-    </div>
-  );
+    constructor(props) {
+
+        super(props);
+        this.state = {
+            userDetails: [],
+        };
+
+    }
+
+
+    componentDidMount() {
+        this.getUserDetails();
+
+    }
+
+    getUserDetails () {
+        console.log(SystemUser.get())
+        if (SystemUser.get() != null) {
+            this.setState({
+                id: SystemUser.get().id,
+                name: SystemUser.get().name,
+
+            });
+            
+        }
+
+    };
+
+    render() {
+        const { name} = this.state;
+        return (
+            <div>
+                <Alert variant="filled" severity="success">
+                    Welcome {this.state.name}, This is a home page
+              </Alert>
+            </div>
+        )
+    }
 }
+
+
+
+

@@ -33,7 +33,7 @@ export default class OrderView extends Component {
 
 
   componentDidMount() {
-    const singleOrderId = +this.props.match.params.id;
+    const singleOrderId = this.props.match.params.id;
 
     if (singleOrderId) {
       this.findOrderById(singleOrderId);

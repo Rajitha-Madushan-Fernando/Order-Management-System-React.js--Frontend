@@ -42,11 +42,12 @@ export const interceptor =  function(excludeUrl, cb) {
                 });
             }
             else {
-                console.log('error.response',error.response);
-                console.log('Index of message',error.response.data.path.indexOf("api/auth/signin"));
-                if(error.response.data.path.indexOf("api/auth/signin") < 0){ 
-                    cb({loader:true, redirectTo:'/SignIn'})
-                }
+                alert('Unauthorized')
+                // console.log('error.response',error.response);
+                // console.log('Index of message',error.response.data.path.indexOf("api/auth/signin"));
+                // if(error.response.data.path.indexOf("api/auth/signin") < 0){ 
+                //     cb({loader:true, redirectTo:'/SignIn'})
+                // }
                 return new Promise((resolve, reject) => {
                     reject(error);
                 });
