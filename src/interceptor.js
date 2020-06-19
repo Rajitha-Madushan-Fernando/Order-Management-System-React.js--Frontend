@@ -20,7 +20,7 @@ export const interceptor =  function(excludeUrl, cb) {
             // console.error('urlObj.pathname  ',urlObj.pathname, );
         }
         else{
-            // console.error('nnnnnnnnnnnnnot selected',request);
+            
         }
         // Return a successful response back to the calling service
         return request;

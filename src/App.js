@@ -6,14 +6,18 @@ import {
   Drawer, List, ListItem,
   ListItemIcon, ListItemText, AppBar, Toolbar,
   IconButton, Typography, CssBaseline,
-  Hidden,Divider
+  Hidden, Divider, Button
 } from '@material-ui/core';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+
+
 import HomeIcon from '@material-ui/icons/Home';
 import GroupIcon from '@material-ui/icons/Group';
 import StorefrontIcon from '@material-ui/icons/Storefront';
 import MenuIcon from '@material-ui/icons/Menu';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-
+import AccountCircle from '@material-ui/icons/AccountCircle';
 
 import CustomerList from './pages/CustomerList/CustomerList';
 import ProductList from './pages/ProductList/ProductList';
@@ -30,7 +34,8 @@ import ErrorPage from './pages/ErrorPage/ErrorPage';
 
 import SignIn from './SignIn/SignIn';
 import SignUp from './SignUp/SignUp';
-import {interceptor} from './interceptor'; 
+import Profile from './Profile/Profile';
+import { interceptor } from './interceptor';
 
 const drawerWidth = 240;
 
@@ -63,32 +68,56 @@ const useStyles = makeStyles((theme) => ({
   },
   // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
- 
+
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  title: {
+    flexGrow: 1,
+  },
 }));
+
 
 
 function App(props) {
   const history = useHistory();
-  console.log('history',history);
+  console.log('history', history);
   const [count, setCount] = useState(0);
-  useEffect(() => { 
-    const authExList = []
-    interceptor(authExList, (data)=>{ 
-      if(data.redirectTo!='') {
-        //history.push(data.redirectTo)
-      }
-    });
-  });
+
+  // componentWillMount(() => {
+  //   const authExList = []
+  //   interceptor(authExList, (data)=>{ 
+  //     if(data.redirectTo!='') {
+  //       history.push(data.redirectTo)
+  //     }
+  //   });
+
+  // });
+
+  // useEffect(() => { 
+  //   const authExList = []
+  //   interceptor(authExList, (data)=>{ 
+  //     if(data.redirectTo!='') {
+  //       //history.push(data.redirectTo)
+  //     }
+  //   });
+  // });
 
 
   const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -96,7 +125,7 @@ function App(props) {
 
   const drawer = (
     <div>
-      
+
       <Drawer
         style={{ width: '240px' }}
         variant="persistent"
@@ -104,8 +133,8 @@ function App(props) {
         open={true}
         classes={{ paper: classes.drawerPaper }}
       >
-      <div className={classes.toolbar} />
-      <Divider />
+        <div className={classes.toolbar} />
+        <Divider />
         <List>
           <Link to="/" className={classes.link}>
             <ListItem button>
@@ -144,9 +173,9 @@ function App(props) {
           </Link>
 
         </List>
-        
+
       </Drawer>
-  </div >
+    </div >
   );
 
   const container = window !== undefined ? () => window().document.body : undefined;
@@ -166,9 +195,31 @@ function App(props) {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap>
+            <Typography variant="h6" noWrap className={classes.title}>
               Order Management system
             </Typography>
+            <IconButton
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              color="inherit"
+              onClick={handleClick}
+              
+            >
+              <AccountCircle />
+            </IconButton>
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              
+              <Link to="/Profile" className={classes.link}> <MenuItem onClick={handleClose}>My Profile</MenuItem></Link>
+              <MenuItem onClick={handleClose}>Logout</MenuItem>
+            </Menu>
+
           </Toolbar>
         </AppBar>
         <nav className={classes.drawer} aria-label="mailbox folders">
@@ -220,13 +271,14 @@ function App(props) {
             <Route exact path="/UpdateOrder/:id" component={NewOrder} />
             <Route exact path="/ProductToOrder/:id" component={ProductToOrder} />
             <Route exact path="/EditProductToOrder/:id" component={EditOrderProduct} />
-            <Route  path="/SignIn" component={SignIn} />
-            <Route  path="/SignUp" component={SignUp} />
+            <Route path="/SignIn" component={SignIn} />
+            <Route path="/SignUp" component={SignUp} />
+            <Route path="/Profile" component={Profile} />
             <Route component={ErrorPage} />
           </Switch>
-          
+
         </main>
-        
+
       </div>
     </Router>
 

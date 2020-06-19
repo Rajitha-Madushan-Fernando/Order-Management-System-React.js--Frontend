@@ -12,7 +12,7 @@ export default class HomePage extends Component {
 
         super(props);
         this.state = {
-            userDetails: [],
+           
         };
 
     }
@@ -29,6 +29,7 @@ export default class HomePage extends Component {
             this.setState({
                 id: SystemUser.get().id,
                 name: SystemUser.get().name,
+                email: SystemUser.get().email,
 
             });
             
@@ -41,7 +42,7 @@ export default class HomePage extends Component {
         return (
             <div>
                 <Alert variant="filled" severity="success">
-                    Welcome {this.state.name}, This is a home page
+                    Welcome {this.state.name}, This is a home page.
               </Alert>
             </div>
         )
