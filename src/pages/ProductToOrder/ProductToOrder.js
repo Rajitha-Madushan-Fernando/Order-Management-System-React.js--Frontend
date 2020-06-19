@@ -151,9 +151,8 @@ export default class ProductToOrder extends Component {
         const { productData, orderDetails } = this.state;
         return (
             <div>
-                <Grid container spacing={6}>
-                    <Grid item xs={4}>
-                        <Container maxWidth="sm" style={{ float: "left" }}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
                             <form onSubmit={this.state.id ? this.updateOrderProduct : this.submitOrderProduct} >
                                 <TextField
                                     name="order_id"
@@ -236,9 +235,8 @@ export default class ProductToOrder extends Component {
                                 >
                                     Reset</Button>
                             </form>
-                        </Container>
                     </Grid>
-                    <Grid item xs={8}>
+                    <Grid item xs={12} sm={6}>
                         <Paper>
                             <TableContainer component={Paper}>
                                 <Table aria-label="customized table" className="order-product-table">

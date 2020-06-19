@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import {
     Button, Table, TableBody, TableCell,
-    TableContainer, TableHead, TableRow, Paper,
+    TableContainer, TableHead, TableRow, Paper,Grid
     
 } from '@material-ui/core';
 import axios from 'axios';
@@ -79,6 +79,7 @@ export default class OrderList extends Component {
             </Button>
             </Link>
             <br /><br /><br />
+            <Grid item xs={12} sm={12}>
             <TableContainer component={Paper}>
                 <Table className='order-table' aria-label="customized table">
                     <TableHead>
@@ -154,6 +155,7 @@ export default class OrderList extends Component {
                     </TableBody>
                 </Table>
             </TableContainer>
+            </Grid>
             </div>
         )
     }

@@ -94,7 +94,7 @@ export default class OrderView extends Component {
     return (
       <div >
         <Grid container spacing={3}>
-          <Grid item xs={4}>
+          <Grid item sm={4}>
             <Card variant="outlined">
               <CardContent>
                 <Typography color="textSecondary" gutterBottom>
@@ -121,7 +121,7 @@ export default class OrderView extends Component {
               </CardActions>
             </Card>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item sm={4}>
             <Card variant="outlined">
               <CardContent>
                 <Typography color="textSecondary" gutterBottom>
@@ -156,7 +156,7 @@ export default class OrderView extends Component {
         </Typography>
 
 
-        <Grid item xs={8}>
+        <Grid item sm={8}>
           <TableContainer component={Paper}>
             <Table aria-label="customized table" className="order-product-table">
               <TableHead>

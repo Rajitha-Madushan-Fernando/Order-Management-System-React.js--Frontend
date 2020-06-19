@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 
 import {
-    Button, ButtonGroup, Table, TableBody, TableCell, TableContainer, TableHead,
-    TableRow, Paper
+    Button, ButtonGroup, Table, TableBody,
+    TableCell, TableContainer, TableHead,
+    TableRow, Paper, Grid, Container
 } from '@material-ui/core';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -12,13 +13,11 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import './ProductList.css' 
+import './ProductList.css'
 
 import { appConfig } from '../../configs/app.config';
 import utils from '../../helper/utils';
 const { baseUrl } = appConfig;
-
-
 
 
 
@@ -63,6 +62,7 @@ export default class ProductList extends Component {
     };
 
     render() {
+
         return (
             <div>
                 <Link to={"NewProduct"} >
@@ -77,54 +77,57 @@ export default class ProductList extends Component {
             </Button>
                 </Link>
                 <br /><br /><br />
-                <TableContainer component={Paper}>
-                    <Table aria-label="customized table">
-                        <TableHead>
-                            <TableRow style={{ backgroundColor: '#2196f3', color: '#fafafa' }} variant="head">
-                                <TableCell>Product Code</TableCell>
-                                <TableCell>Name</TableCell>
-                                <TableCell>Unit Price</TableCell>
-                                <TableCell>Current Stock</TableCell>
-                                <TableCell>Status</TableCell>
-                                <TableCell></TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
+                    <Grid item xs={12} md={8} lg={9}>
+                        <TableContainer component={Paper}>
+                            <Table aria-label="customized table">
+                                <TableHead>
+                                    <TableRow style={{ backgroundColor: '#2196f3', color: '#fafafa' }} variant="head">
+                                        <TableCell>Product Code</TableCell>
+                                        <TableCell>Name</TableCell>
+                                        <TableCell>Unit Price</TableCell>
+                                        <TableCell>Current Stock</TableCell>
+                                        <TableCell>Status</TableCell>
+                                        <TableCell></TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
 
-                            {
-                                this.state.product.length === 0 ?
-                                    <TableRow align="center">
-                                        <TableCell colSpan="5">No Product Available</TableCell>
-                                    </TableRow> :
-                                    this.state.product.map((product) => (
-                                        <TableRow key={product.id}>
-                                            <TableCell>{product.product_code}</TableCell>
-                                            <TableCell>{product.name}</TableCell>
-                                            <TableCell>{product.price}</TableCell>
-                                            <TableCell>{product.unit}</TableCell>
-                                            <TableCell>
-                                                {product.status === 1 ? <ThumbUpIcon /> : <ThumbDownIcon />}
-                                            </TableCell>
-                                            <TableCell>
-                                                <ButtonGroup>
-                                                    <Link to={"UpdateProduct/" + product.id} >
-                                                        <Button
-                                                            size="sm"
-                                                            variant="outline-danger"
-                                                        >
-                                                            <EditIcon />
-                                                        </Button>
-                                                    </Link>{' '}
-                                                    <Button size="sm" variant="outline-danger" onClick={this.deleteProduct.bind(this, product.id)}><DeleteForeverIcon /></Button>
-                                                </ButtonGroup>
-                                            </TableCell>
-                                        </TableRow>
-                                    ))
-                            }
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                                    {
+                                        this.state.product.length === 0 ?
+                                            <TableRow align="center">
+                                                <TableCell colSpan="5">No Product Available</TableCell>
+                                            </TableRow> :
+                                            this.state.product.map((product) => (
+                                                <TableRow key={product.id}>
+                                                    <TableCell>{product.product_code}</TableCell>
+                                                    <TableCell>{product.name}</TableCell>
+                                                    <TableCell>{product.price}</TableCell>
+                                                    <TableCell>{product.unit}</TableCell>
+                                                    <TableCell>
+                                                        {product.status === 1 ? <ThumbUpIcon /> : <ThumbDownIcon />}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        <ButtonGroup>
+                                                            <Link to={"UpdateProduct/" + product.id} >
+                                                                <Button
+                                                                    size="sm"
+                                                                    variant="outline-danger"
+                                                                >
+                                                                    <EditIcon />
+                                                                </Button>
+                                                            </Link>{' '}
+                                                            <Button size="sm" variant="outline-danger" onClick={this.deleteProduct.bind(this, product.id)}><DeleteForeverIcon /></Button>
+                                                        </ButtonGroup>
+                                                    </TableCell>
+                                                </TableRow>
+                                            ))
+                                    }
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    </Grid>
             </div>
         )
     }
 }
+
