@@ -170,7 +170,7 @@ export default class NewProduct extends Component {
               style={{ margin: 2 }}
               placeholder="Enter Product Name"
               helperText={this.state.errors.name}
-              fullWidth
+              fullWidtbr  
               onChange={this.handleInputChange}
               margin="normal"
               InputLabelProps={{

@@ -156,7 +156,7 @@ export default class OrderView extends Component {
         </Typography>
 
 
-        <Grid item sm={8}>
+        <Grid item sm={8} xs={12}>
           <TableContainer component={Paper}>
             <Table aria-label="customized table" className="order-product-table">
               <TableHead>

@@ -77,9 +77,10 @@ export default class ProductList extends Component {
             </Button>
                 </Link>
                 <br /><br /><br />
-                    <Grid item xs={12} md={8} lg={9}>
+                <Grid item xs={12} sm={8}>
+                     <Paper>
                         <TableContainer component={Paper}>
-                            <Table aria-label="customized table">
+                            <Table aria-label="customized table" className="order-table">
                                 <TableHead>
                                     <TableRow style={{ backgroundColor: '#2196f3', color: '#fafafa' }} variant="head">
                                         <TableCell>Product Code</TableCell>
@@ -125,6 +126,7 @@ export default class ProductList extends Component {
                                 </TableBody>
                             </Table>
                         </TableContainer>
+                        </Paper>
                     </Grid>
             </div>
         )

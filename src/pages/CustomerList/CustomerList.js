@@ -74,9 +74,10 @@ export default class CustomerList extends Component {
             </Button>
         </Link>
         <br /><br /><br />
-        <Grid item xs={12} sm={10}>
+        <Grid item xs={12} sm={8}>
+        <Paper>
           <TableContainer component={Paper}>
-            <Table aria-label="customized table">
+            <Table aria-label="customized table" className="customer-table">
               <TableHead>
                 <TableRow style={{ backgroundColor: '#2196f3', color: '#fafafa' }} variant="head">
                   <TableCell>Customer Name</TableCell>
@@ -102,6 +103,7 @@ export default class CustomerList extends Component {
                         <TableCell>{customer.contact_number}</TableCell>
                         <TableCell>{customer.cus_unique_id}</TableCell>
                         <TableCell>
+                         <ButtonGroup>
                             <Link to={"UpdateCustomer/" + customer.id} >
                               <Button
                                 size="sm"
@@ -113,13 +115,15 @@ export default class CustomerList extends Component {
                             <Button size="sm" variant="outline-danger" onClick={this.deleteCustomer.bind(this, customer.id)}>
                               <DeleteForeverIcon />
                             </Button>
+                            </ButtonGroup>
                         </TableCell>
                       </TableRow>
                     ))
                 }
               </TableBody>
             </Table>
-          </TableContainer>
+            </TableContainer>
+            </Paper>
         </Grid>
       </div>
     )
