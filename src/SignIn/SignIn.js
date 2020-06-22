@@ -70,17 +70,13 @@ class SignIn extends Component {
     }
     this.submitUser = this.submitUser.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-   
   };
 
   handleInputChange(event) {
     const { value, name } = event.target;
     this.setState({ [name]: value });
-
-
   }
-
-
+  
   resetErrorState() {
     this.setState({
       errors: {
@@ -89,11 +85,7 @@ class SignIn extends Component {
       }
     })
   }
-
-
-
-
-
+  
   submitUser = event => {
     //userh.get()
     event.preventDefault();
@@ -102,33 +94,33 @@ class SignIn extends Component {
       username: this.state.username,
       password: this.state.password,
     };
+    
     axios.post(`${baseUrl}/api/auth/signin`, user)
-      .then(response => {
-        console.log('response');
-        tokens.save({ 'userType': 'user', 'token': response.data.accessToken });
-        SystemUser.save(response.data.userData);
-        this.props.history.push('/');
-      })
-      .catch(_errors => {
-        if (_errors.response) {
-          const { status, data } = _errors.response;
-          console.log('_errors.response', _errors.response);
-          if (status == 401) {
-            console.log('data.error', data.error);
-            utils.showError("Bad Credintials");
-          }
-          else {
-            let errorsObj = {}
-            data.errors.forEach(error => {
-              const { defaultMessage, field } = error
-              errorsObj[field] = defaultMessage;
-            })
-            console.log(errorsObj);
-            this.setState({ errors: errorsObj });
-          }
-
+    .then(response => {
+      tokens.save({ 'userType': 'user', 'token': response.data.accessToken });
+      SystemUser.save(response.data.userData);
+      this.props.history.push('/');
+    })
+    .catch(_errors => {
+      if (_errors.response) {
+        const { status, data } = _errors.response;
+        console.log('_errors.response', _errors.response);
+        if (status == 401) {
+          console.log('data.error', data.error);
+          utils.showError("Bad Credintials");
         }
-      });
+        else {
+          let errorsObj = {}
+          data.errors.forEach(error => {
+            const { defaultMessage, field } = error
+            errorsObj[field] = defaultMessage;
+          })
+          console.log(errorsObj);
+          this.setState({ errors: errorsObj });
+        }
+
+      }
+    });
   };
 
 
@@ -160,8 +152,7 @@ class SignIn extends Component {
               margin="normal"
               variant="outlined"
           />
-
-
+          
            <TextField
               name="password"
               type="password"
@@ -202,9 +193,7 @@ class SignIn extends Component {
           </Grid>
         </form>
       </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
+      <Box mt={8}> <Copyright /> </Box>
     </Container>
         
     )

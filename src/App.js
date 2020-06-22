@@ -87,9 +87,7 @@ const useStyles = makeStyles((theme) => ({
 
 const App = (props) => {
   
-  const [count, setCount] = useState(0);
   const [isHideSpinner, setIsHideSpinner] = useState(0);
-
   
   EventEmitter.subscribe('showLoading', (event)=>{ 
     // hide loading screen after 5 second
@@ -97,6 +95,7 @@ const App = (props) => {
       setIsHideSpinner(true);
     }, 30000);
   });
+
   // hide loading screen
   EventEmitter.subscribe('hideLoading', (event)=>{
     setTimeout(() => {
@@ -105,15 +104,17 @@ const App = (props) => {
   });
   
   const authExList = []
-  // this way equal to componentWillMount()
-  interceptor(authExList, (authData)=>{ 
-    const {loaderIsHide, redirectTo} = authData;
-    setIsHideSpinner(loaderIsHide);    
-  });
+
   
   // this way equal to componentDidMount()
   useEffect(() => {  
-    setIsHideSpinner(true)
+    setIsHideSpinner(true);
+    // this way equal to componentWillMount()
+    interceptor(authExList, (authData)=>{ 
+      const {loaderIsHide, redirectTo} = authData;
+      console.log('loaderIsHide',loaderIsHide);
+      setIsHideSpinner(loaderIsHide);    
+    });
   },[]);
   
   const { window } = props;
@@ -267,6 +268,7 @@ const App = (props) => {
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <Switch>
+            <Route exact path="/SignIn" component={SignIn} />
             <Route path="/" exact component={HomePage} />
             <Route exact path="/Customer" component={CustomerList} />
             <Route exact path="/Product" component={ProductList} />
@@ -281,7 +283,6 @@ const App = (props) => {
             <Route exact path="/UpdateOrder/:id" component={NewOrder} />
             <Route exact path="/ProductToOrder/:id" component={ProductToOrder} />
             <Route exact path="/EditProductToOrder/:id" component={EditOrderProduct} />
-            <Route path="/SignIn" component={SignIn} />
             <Route path="/SignUp" component={SignUp} />
             <Route path="/Profile" component={Profile} />
             <Route component={ErrorPage} />
