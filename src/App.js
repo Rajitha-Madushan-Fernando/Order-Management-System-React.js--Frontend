@@ -94,15 +94,20 @@ function App(props) {
   //   });
 
   // });
+  const authExList = []
+  interceptor(authExList, (data)=>{ 
+    if(data.redirectTo!='') {
+      history.push(data.redirectTo)
+    }
+  });
 
   useEffect(() => { 
-    const authExList = []
-    interceptor(authExList, (data)=>{ 
-      if(data.redirectTo!='') {
-        //history.push(data.redirectTo)
-      }
-    });
-  });
+    // interceptor(authExList, (data)=>{ 
+    //   if(data.redirectTo!='') {
+    //     //history.push(data.redirectTo)
+    //   }
+    // });
+  },[]);
 
 
   const { window } = props;

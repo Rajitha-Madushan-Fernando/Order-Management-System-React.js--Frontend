@@ -8,7 +8,7 @@ export const interceptor =  function(excludeUrl, cb) {
 
     console.log('init');
     axios.interceptors.request.use((request) => { 
-      console.log('request',request);
+        console.log('request',request);
         cb({loader:false, redirectTo:''})
         const urlObj = new URL(request.url);
         if(excludeUrl.indexOf(urlObj.pathname)<0){
