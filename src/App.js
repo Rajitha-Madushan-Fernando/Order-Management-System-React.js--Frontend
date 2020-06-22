@@ -36,6 +36,9 @@ import SignIn from './SignIn/SignIn';
 import SignUp from './SignUp/SignUp';
 import Profile from './Profile/Profile';
 import { interceptor } from './interceptor';
+import { createBrowserHistory } from "history";
+
+let history = createBrowserHistory();
 
 const drawerWidth = 240;
 
@@ -80,33 +83,15 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-function App(props) {
-  const history = useHistory();
-  console.log('history', history);
+function App(props) { 
+  console.log('history',history);
   const [count, setCount] = useState(0);
-
-  // componentWillMount(() => {
-  //   const authExList = []
-  //   interceptor(authExList, (data)=>{ 
-  //     if(data.redirectTo!='') {
-  //       history.push(data.redirectTo)
-  //     }
-  //   });
-
-  // });
+  
   const authExList = []
-  interceptor(authExList, (data)=>{ 
-    if(data.redirectTo!='') {
-      history.push(data.redirectTo)
-    }
+  interceptor(authExList, (data)=>{  
   });
 
-  useEffect(() => { 
-    // interceptor(authExList, (data)=>{ 
-    //   if(data.redirectTo!='') {
-    //     //history.push(data.redirectTo)
-    //   }
-    // });
+  useEffect(() => {  
   },[]);
 
 
