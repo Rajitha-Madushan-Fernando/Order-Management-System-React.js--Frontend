@@ -1,5 +1,5 @@
 export const appConfig  = {
     name : 'Project name',
-    baseUrl: 'http://localhost:9090/springboot'
+    baseUrl: process.env.REACT_APP_API_BASE_URL
 };
   
