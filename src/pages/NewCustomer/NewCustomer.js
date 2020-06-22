@@ -153,7 +153,7 @@ export default class NewCustomer extends Component {
             this.setState({ errors: errorsObj });
           }
           else {
-            alert(error);
+            utils.showError(error)
           }
 
         }

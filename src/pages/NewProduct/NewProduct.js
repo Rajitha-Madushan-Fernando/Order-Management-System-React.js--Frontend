@@ -140,14 +140,19 @@ export default class NewProduct extends Component {
       })
       .catch(_errors => {
         if (_errors.response) {
-          const { errors } = _errors.response.data;
-          let errorsObj = {}
-          errors.forEach(error => {
-            const { defaultMessage, field } = error
-            errorsObj[field] = defaultMessage;
-          })
-          console.log(errorsObj);
-          this.setState({ errors: errorsObj });
+          const { errors, error } = _errors.response.data;
+          if(errors!==undefined) {
+            let errorsObj = {}
+            errors.forEach(error => {
+              const { defaultMessage, field } = error
+              errorsObj[field] = defaultMessage;
+            })
+            console.log(errorsObj);
+            this.setState({ errors: errorsObj });
+          }
+          else {
+            utils.showError(error)
+          }
         }
       });
   };
