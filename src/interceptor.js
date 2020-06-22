@@ -13,8 +13,7 @@ export const interceptor =  function(excludeUrl, cb) {
         const urlObj = new URL(request.url);
         if(excludeUrl.indexOf(urlObj.pathname)<0){
             const token = tokens.get('token');
-            const authuser = tokens.get('userType');
-            // console.log('token',token);
+            const authuser = tokens.get('userType'); 
             request.headers['Authorization'] = `Bearer ${token}`;
             request.headers['Authorization-authuser'] = `${authuser}`;
             // console.error('urlObj.pathname  ',urlObj.pathname, );
