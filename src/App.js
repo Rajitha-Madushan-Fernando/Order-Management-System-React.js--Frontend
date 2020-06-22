@@ -83,8 +83,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-function App(props) { 
-  console.log('history',history);
+function App(props) {  
   const [count, setCount] = useState(0);
   
   const authExList = []

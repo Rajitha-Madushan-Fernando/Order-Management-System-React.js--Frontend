@@ -106,17 +106,24 @@ export default class NewProduct extends Component {
       status: this.state.status
     };
 
-    axios.put(`${baseUrl}/product/add/`, product)
-      .then(response => {
-
-        if (response.data != null) {
-          this.setState({ "show": true, "method": "put" });
-        }
-        else {
-          this.setState({ "show": false });
-        }
-      });
-    this.setState(this.initialState);
+    axios({
+      method: 'put',
+      url: `${baseUrl}/product/add`,
+      data: product
+    })
+    .then(response => {
+      console.log('response',response);
+      if (response.data != null) {
+        this.setState({ "show": true, "method": "put" });
+      }
+      else {
+        this.setState({ "show": false });
+      }
+      this.resetState();
+    },
+    (error)=>{
+      console.log('error',error);
+    }); 
   };
 
   submitProduct = event => {

@@ -6,7 +6,7 @@ import tokens from './helper/tokens';
 const _window = window;
 export const interceptor =  function(excludeUrl, cb) { 
 
-    console.log('init');
+    console.log('interceptor init');
     axios.interceptors.request.use((request) => { 
         console.log('request',request);
         cb({loader:false, redirectTo:''})
@@ -32,9 +32,15 @@ export const interceptor =  function(excludeUrl, cb) {
             cb({loader:true, redirectTo:''})
             return response;
         },
-        (error) => {
+        (error) => { 
             
+            console.log('error.response',error.response);
             // Return any error which is not due to authentication back to the calling service
+            if(error.response==undefined) {
+                return new Promise((resolve, reject) => {
+                    reject(error);
+                });
+            }
             if (error.response.status !== 401) {
                 return new Promise((resolve, reject) => {
                     reject(error);
