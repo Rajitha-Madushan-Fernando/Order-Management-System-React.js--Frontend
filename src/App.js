@@ -31,6 +31,8 @@ import NewOrder from './pages/NewOrder/NewOrder';
 import ProductToOrder from './pages/ProductToOrder/ProductToOrder';
 import EditOrderProduct from './pages/EditOrderProduct/EditOrderProduct';
 import ErrorPage from './pages/ErrorPage/ErrorPage';
+import EventEmitter from './helper/events';
+import LoadingSpinner from './Components/LoadingSpinner/LoadingSpinner';
 
 import SignIn from './SignIn/SignIn';
 import SignUp from './SignUp/SignUp';
@@ -83,35 +85,55 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-function App(props) {  
+const App = (props) => {
+  
   const [count, setCount] = useState(0);
+  const [isHideSpinner, setIsHideSpinner] = useState(0);
+
+  
+  EventEmitter.subscribe('showLoading', (event)=>{ 
+    // hide loading screen after 5 second
+    setTimeout(() => {
+      setIsHideSpinner(true);
+    }, 30000);
+  });
+  // hide loading screen
+  EventEmitter.subscribe('hideLoading', (event)=>{
+    setTimeout(() => {
+      setIsHideSpinner(true)
+    }, 500);
+  });
   
   const authExList = []
-  interceptor(authExList, (data)=>{  
+  // this way equal to componentWillMount()
+  interceptor(authExList, (authData)=>{ 
+    const {loaderIsHide, redirectTo} = authData;
+    setIsHideSpinner(loaderIsHide);    
   });
-
+  
+  // this way equal to componentDidMount()
   useEffect(() => {  
+    setIsHideSpinner(true)
   },[]);
-
-
+  
   const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
-
+  
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
+  
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
+  
   const drawer = (
     <div>
 
@@ -193,7 +215,6 @@ function App(props) {
               aria-haspopup="true"
               color="inherit"
               onClick={handleClick}
-              
             >
               <AccountCircle />
             </IconButton>
@@ -265,7 +286,7 @@ function App(props) {
             <Route path="/Profile" component={Profile} />
             <Route component={ErrorPage} />
           </Switch>
-
+          {isHideSpinner?'':<LoadingSpinner />}
         </main>
 
       </div>

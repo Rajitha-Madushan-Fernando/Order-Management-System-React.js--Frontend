@@ -1,4 +1,5 @@
-//import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
+import events from './events';
 import numeral from 'numeral';
 
 // toast.configure();
@@ -10,7 +11,7 @@ const utils = {
         //events.dispatch('hideLoading') 
     },
     showError: (msg) => {
-        /////////toast(msg)
+        toast(msg)
         console.error('Error Message',msg);
     },
     showMsg: (msg) => {

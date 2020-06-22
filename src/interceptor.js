@@ -9,7 +9,7 @@ export const interceptor =  function(excludeUrl, cb) {
     console.log('interceptor init');
     axios.interceptors.request.use((request) => { 
         console.log('request',request);
-        cb({loader:false, redirectTo:''})
+        cb({loaderIsHide:false, redirectTo:''})
         const urlObj = new URL(request.url);
         if(excludeUrl.indexOf(urlObj.pathname)<0){
             const token = tokens.get('token');
@@ -29,26 +29,26 @@ export const interceptor =  function(excludeUrl, cb) {
         (response) => {
             console.log('response', response);
             // Return a successful response back to the calling service
-            cb({loader:true, redirectTo:''})
+            cb({loaderIsHide:true, redirectTo:''})
             return response;
         },
-        (error) => { 
-            
-            console.log('error.response',error.response);
+        (error) => {  
             // Return any error which is not due to authentication back to the calling service
             if(error.response==undefined) {
+                cb({loaderIsHide:true, redirectTo:''})
                 return new Promise((resolve, reject) => {
                     reject(error);
                 });
             }
             if (error.response.status !== 401) {
+                cb({loaderIsHide:true, redirectTo:''})
                 return new Promise((resolve, reject) => {
                     reject(error);
                 });
             }
             else {
                 if(error.response.data.path.indexOf("api/auth/signin") < 0){ 
-                    cb({loader:true, redirectTo:'/SignIn'})
+                    cb({loaderIsHide:true, redirectTo:'/SignIn'})
                     _window.location = '/SignIn'
                 }
                 return new Promise((resolve, reject) => {
