@@ -3,7 +3,8 @@ import { Promise } from "es6-promise";
 import { TokenStorage } from "./token-storage";
 import { createBrowserHistory } from "history";
 import tokens from './helper/tokens'; 
-const _window = window;
+import utils from './helper/utils';
+
 export const interceptor =  function(excludeUrl, cb) { 
   
   console.log('interceptor init');
@@ -48,7 +49,7 @@ export const interceptor =  function(excludeUrl, cb) {
       }
       else {
         if(error.response.data.path.indexOf("api/auth/signin") < 0){ 
-          _window.location = '/SignIn'
+          utils.redirect('/signin');
         }
         cb({loaderIsHide:true, })
         return new Promise((resolve, reject) => {
