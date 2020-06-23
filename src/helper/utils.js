@@ -3,13 +3,7 @@ import events from './events';
 import numeral from 'numeral';
 
 // toast.configure();
-const utils = {
-    loadingShow: () => {
-        //events.dispatch('showLoading',()=>{}) 
-    },
-    loadingHide: () => {
-        //events.dispatch('hideLoading') 
-    },
+const utils = { 
     showError: (msg) => {
         toast(msg)
         console.error('Error Message',msg);

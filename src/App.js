@@ -87,24 +87,8 @@ const useStyles = makeStyles((theme) => ({
 
 const App = (props) => {
   
-  const [isHideSpinner, setIsHideSpinner] = useState(0);
-  
-  EventEmitter.subscribe('showLoading', (event)=>{ 
-    // hide loading screen after 5 second
-    setTimeout(() => {
-      setIsHideSpinner(true);
-    }, 30000);
-  });
-
-  // hide loading screen
-  EventEmitter.subscribe('hideLoading', (event)=>{
-    setTimeout(() => {
-      setIsHideSpinner(true)
-    }, 500);
-  });
-  
+  const [isHideSpinner, setIsHideSpinner] = useState(0);  
   const authExList = []
-
   
   // this way equal to componentDidMount()
   useEffect(() => {  

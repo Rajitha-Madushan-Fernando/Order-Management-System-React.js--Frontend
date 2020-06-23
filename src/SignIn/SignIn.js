@@ -87,6 +87,7 @@ class SignIn extends Component {
   }
   
   submitUser = event => {
+    console.log('submit login');
     //userh.get()
     event.preventDefault();
 
