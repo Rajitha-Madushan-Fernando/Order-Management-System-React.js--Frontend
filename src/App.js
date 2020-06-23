@@ -266,7 +266,7 @@ const App = (props) => {
             <Route exact path="/UpdateOrder/:id" component={NewOrder} />
             <Route exact path="/ProductToOrder/:id" component={ProductToOrder} />
             <Route exact path="/EditProductToOrder/:id" component={EditOrderProduct} />
-            <Route path="/SignUp" component={SignUp} />
+            <Route exact path="/SignUp" component={SignUp} />
             <Route path="/Profile" component={Profile} />
             <Route component={ErrorPage} />
           </Switch>
