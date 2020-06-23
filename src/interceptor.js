@@ -48,9 +48,9 @@ export const interceptor =  function(excludeUrl, cb) {
       }
       else {
         if(error.response.data.path.indexOf("api/auth/signin") < 0){ 
-          cb({loaderIsHide:true, redirectTo:'/SignIn'})
           _window.location = '/SignIn'
         }
+        cb({loaderIsHide:true, })
         return new Promise((resolve, reject) => {
           reject(error);
         });
