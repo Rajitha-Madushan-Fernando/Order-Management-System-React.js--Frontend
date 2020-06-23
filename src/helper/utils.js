@@ -25,6 +25,9 @@ const utils = {
 		} 
 		return numeral(rowNumber).format('0,0');
 	},
+	redirect: (value = '/') => {
+		window.location = value;
+	},
 	
 }
 export default utils

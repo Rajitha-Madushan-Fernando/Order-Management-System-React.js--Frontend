@@ -39,6 +39,9 @@ import Profile from './Profile/Profile';
 import { interceptor } from './interceptor';
 import { createBrowserHistory } from "history";
 
+import utils from './helper/utils';
+
+
 let history = createBrowserHistory();
 
 const drawerWidth = 240;
@@ -112,6 +115,9 @@ const App = (props) => {
   
   const handleClose = () => {
     setAnchorEl(null);
+    localStorage.clear();
+    utils.redirect('/signin');
+    //props.history.push('/signin');
   };
   
   const handleDrawerToggle = () => {
@@ -252,7 +258,8 @@ const App = (props) => {
           <div className={classes.toolbar} />
           <Switch>
             <Route exact path="/signin" component={SignIn} />
-            <Route path="/" exact component={HomePage} />
+            <Route path="/" exact component={SignIn} />
+            <Route path="/home" exact component={HomePage} />
             <Route exact path="/customer" component={CustomerList} />
             <Route exact path="/product" component={ProductList} />
             <Route exact path="/order" component={OrderList} />
