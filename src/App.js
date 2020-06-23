@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-
+import 'react-toastify/dist/ReactToastify.css';
 
 import HomeIcon from '@material-ui/icons/Home';
 import GroupIcon from '@material-ui/icons/Group';
@@ -30,7 +30,8 @@ import NewProduct from './pages/NewProduct/NewProduct';
 import NewOrder from './pages/NewOrder/NewOrder';
 import ProductToOrder from './pages/ProductToOrder/ProductToOrder';
 import EditOrderProduct from './pages/EditOrderProduct/EditOrderProduct';
-import ErrorPage from './pages/ErrorPage/ErrorPage';
+import ErrorPage from './pages/ErrorPage/ErrorPage'; 
+import LoadingSpinner from './Components/LoadingSpinner/LoadingSpinner';
 
 import SignIn from './SignIn/SignIn';
 import SignUp from './SignUp/SignUp';
@@ -83,36 +84,40 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-function App(props) { 
-  console.log('history',history);
-  const [count, setCount] = useState(0);
+const App = (props) => {
   
+  const [isHideSpinner, setIsHideSpinner] = useState(0);  
   const authExList = []
-  interceptor(authExList, (data)=>{  
-  });
-
+  
+  // this way equal to componentDidMount()
   useEffect(() => {  
+    setIsHideSpinner(true);
+    // this way equal to componentWillMount()
+    interceptor(authExList, (authData)=>{ 
+      const {loaderIsHide, redirectTo} = authData;
+      console.log('loaderIsHide',loaderIsHide);
+      setIsHideSpinner(loaderIsHide);    
+    });
   },[]);
-
-
+  
   const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
-
+  
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
+  
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
+  
   const drawer = (
     <div>
 
@@ -194,7 +199,6 @@ function App(props) {
               aria-haspopup="true"
               color="inherit"
               onClick={handleClick}
-              
             >
               <AccountCircle />
             </IconButton>
@@ -247,6 +251,7 @@ function App(props) {
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <Switch>
+            <Route exact path="/SignIn" component={SignIn} />
             <Route path="/" exact component={HomePage} />
             <Route exact path="/Customer" component={CustomerList} />
             <Route exact path="/Product" component={ProductList} />
@@ -261,12 +266,11 @@ function App(props) {
             <Route exact path="/UpdateOrder/:id" component={NewOrder} />
             <Route exact path="/ProductToOrder/:id" component={ProductToOrder} />
             <Route exact path="/EditProductToOrder/:id" component={EditOrderProduct} />
-            <Route path="/SignIn" component={SignIn} />
             <Route path="/SignUp" component={SignUp} />
             <Route path="/Profile" component={Profile} />
             <Route component={ErrorPage} />
           </Switch>
-
+          {isHideSpinner?'':<LoadingSpinner />}
         </main>
 
       </div>
