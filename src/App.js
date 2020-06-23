@@ -140,7 +140,7 @@ const App = (props) => {
             </ListItem>
           </Link>
 
-          <Link to="/Customer" className={classes.link}>
+          <Link to="/customer" className={classes.link}>
             <ListItem button>
               <ListItemIcon>
                 <GroupIcon />
@@ -149,7 +149,7 @@ const App = (props) => {
             </ListItem>
           </Link>
 
-          <Link to="/Product" className={classes.link}>
+          <Link to="/product" className={classes.link}>
             <ListItem button>
               <ListItemIcon>
                 <StorefrontIcon />
@@ -158,7 +158,7 @@ const App = (props) => {
             </ListItem>
           </Link>
 
-          <Link to="/Order" className={classes.link}>
+          <Link to="/order" className={classes.link}>
             <ListItem button>
               <ListItemIcon>
                 <AddShoppingCartIcon />
@@ -210,7 +210,7 @@ const App = (props) => {
               onClose={handleClose}
             >
               
-              <Link to="/Profile" className={classes.link}> <MenuItem onClick={handleClose}>My Profile</MenuItem></Link>
+              <Link to="/profile" className={classes.link}> <MenuItem onClick={handleClose}>My Profile</MenuItem></Link>
               <MenuItem onClick={handleClose}>Logout</MenuItem>
             </Menu>
 
@@ -251,23 +251,23 @@ const App = (props) => {
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <Switch>
-            <Route exact path="/SignIn" component={SignIn} />
+            <Route exact path="/signin" component={SignIn} />
             <Route path="/" exact component={HomePage} />
-            <Route exact path="/Customer" component={CustomerList} />
-            <Route exact path="/Product" component={ProductList} />
-            <Route exact path="/Order" component={OrderList} />
-            <Route exact path="/OrderView/:id" component={OrderView} />
-            <Route exact path="/OrderProductEdit/:id" component={OrderProductEdit} />
-            <Route exact path="/NewCustomer" component={NewCustomer} />
-            <Route exact path="/UpdateCustomer/:id" component={NewCustomer} />
-            <Route exact path="/NewProduct" component={NewProduct} />
-            <Route exact path="/UpdateProduct/:id" component={NewProduct} />
-            <Route exact path="/NewOrder" component={NewOrder} />
-            <Route exact path="/UpdateOrder/:id" component={NewOrder} />
-            <Route exact path="/ProductToOrder/:id" component={ProductToOrder} />
-            <Route exact path="/EditProductToOrder/:id" component={EditOrderProduct} />
-            <Route path="/SignUp" component={SignUp} />
-            <Route path="/Profile" component={Profile} />
+            <Route exact path="/customer" component={CustomerList} />
+            <Route exact path="/product" component={ProductList} />
+            <Route exact path="/order" component={OrderList} />
+            <Route exact path="/order-view/:id" component={OrderView} />
+            <Route exact path="/order-product-edit/:id" component={OrderProductEdit} />
+            <Route exact path="/new-customer" component={NewCustomer} />
+            <Route exact path="/update-customer/:id" component={NewCustomer} />
+            <Route exact path="/new-product" component={NewProduct} />
+            <Route exact path="/update-product/:id" component={NewProduct} />
+            <Route exact path="/new-order" component={NewOrder} />
+            <Route exact path="/update-order/:id" component={NewOrder} />
+            <Route exact path="/product-to-order/:id" component={ProductToOrder} />
+            <Route exact path="/edit-product-to-order/:id" component={EditOrderProduct} />
+            <Route exact path="/signup" component={SignUp} />
+            <Route path="/profile" component={Profile} />
             <Route component={ErrorPage} />
           </Switch>
           {isHideSpinner?'':<LoadingSpinner />}

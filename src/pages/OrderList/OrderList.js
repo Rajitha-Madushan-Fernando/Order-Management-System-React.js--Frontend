@@ -67,7 +67,7 @@ export default class OrderList extends Component {
     render() {
         return (
             <div>
-            <Link to={"NewOrder"} >
+            <Link to={"new-order"} >
             <Button
                 variant="contained"
                 color="secondary"
@@ -105,7 +105,7 @@ export default class OrderList extends Component {
                                         <TableCell>{order.order_unique_id}</TableCell>
                                         <TableCell>{order.status === 1 ? <ThumbUpIcon /> : <ThumbDownIcon />}</TableCell>
                                         <TableCell style={{float:"right"}}>
-                                            <Link to={"orderview/" + order.id} >
+                                            <Link to={"order-view/" + order.id} >
                                                 <Button
                                                     variant="contained"
                                                     color="primary"
@@ -117,7 +117,7 @@ export default class OrderList extends Component {
                                                 </Button>
                                             </Link>
                                             {" "}
-                                            <Link to={"UpdateOrder/" + order.id} >
+                                            <Link to={"update-order/" + order.id} >
                                                 <Button
                                                     variant="contained"
                                                     color="primary"
@@ -129,7 +129,7 @@ export default class OrderList extends Component {
                                                 </Button>
                                             </Link>
                                             {" "}
-                                            <Link to={"ProductToOrder/" + order.id} >
+                                            <Link to={"product-to-order/" + order.id} >
                                             <Button
                                                 variant="contained"
                                                 color="default"

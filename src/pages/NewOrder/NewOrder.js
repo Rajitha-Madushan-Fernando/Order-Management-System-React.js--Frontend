@@ -129,7 +129,7 @@ export default class NewOrder extends Component {
 
             .then(response => {
                 console.log('id', this.state.id);
-                this.props.history.push('/ProductToOrder/' + this.state.id);
+                this.props.history.push('/product-to-order/' + this.state.id);
                 if (response.data != null) {
                     this.setState({ "show": true, "method": "put" });
                 }
@@ -155,7 +155,7 @@ export default class NewOrder extends Component {
         axios.post(`${baseUrl}/order/add`, order)
             .then(response => {
                 console.log('response', response);
-                this.props.history.push('/ProductToOrder/' + response.data.id);
+                this.props.history.push('/product-to-order/' + response.data.id);
                 //console.log('orderData',response);
                 //this.setState({ "show": false });
                 utils.showSuccess("Order Saved Successfully.");

@@ -122,8 +122,10 @@ export default class EditOrderProduct extends Component {
 
             .then(response => {
                 //console.log('id', this.state.id);
-                this.props.history.push('/ProductToOrder/' + this.state.order_id);
+                this.props.history.push('/product-to-order/' + this.state.order_id);
                 utils.showSuccess("Product Saved Updated.");
+                this.resetErrorState();
+                this.resetState();
             })
             .catch(_errors => {
                 if (_errors.response) {

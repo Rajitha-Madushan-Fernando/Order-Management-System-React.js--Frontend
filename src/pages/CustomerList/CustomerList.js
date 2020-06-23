@@ -62,7 +62,7 @@ export default class CustomerList extends Component {
 
     return (
       <div>
-        <Link to={"NewCustomer"} >
+        <Link to={"new-customer"} >
           <Button
             variant="contained"
             color="secondary"
@@ -104,7 +104,7 @@ export default class CustomerList extends Component {
                         <TableCell>{customer.cus_unique_id}</TableCell>
                         <TableCell>
                          <ButtonGroup>
-                            <Link to={"UpdateCustomer/" + customer.id} >
+                            <Link to={"update-customer/" + customer.id} >
                               <Button
                                 size="sm"
                                 variant="outline-danger"
