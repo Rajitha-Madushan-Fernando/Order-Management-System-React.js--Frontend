@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-
+import 'react-toastify/dist/ReactToastify.css';
 
 import HomeIcon from '@material-ui/icons/Home';
 import GroupIcon from '@material-ui/icons/Group';
@@ -30,8 +30,7 @@ import NewProduct from './pages/NewProduct/NewProduct';
 import NewOrder from './pages/NewOrder/NewOrder';
 import ProductToOrder from './pages/ProductToOrder/ProductToOrder';
 import EditOrderProduct from './pages/EditOrderProduct/EditOrderProduct';
-import ErrorPage from './pages/ErrorPage/ErrorPage';
-import EventEmitter from './helper/events';
+import ErrorPage from './pages/ErrorPage/ErrorPage'; 
 import LoadingSpinner from './Components/LoadingSpinner/LoadingSpinner';
 
 import SignIn from './SignIn/SignIn';
@@ -87,24 +86,8 @@ const useStyles = makeStyles((theme) => ({
 
 const App = (props) => {
   
-  const [isHideSpinner, setIsHideSpinner] = useState(0);
-  
-  EventEmitter.subscribe('showLoading', (event)=>{ 
-    // hide loading screen after 5 second
-    setTimeout(() => {
-      setIsHideSpinner(true);
-    }, 30000);
-  });
-
-  // hide loading screen
-  EventEmitter.subscribe('hideLoading', (event)=>{
-    setTimeout(() => {
-      setIsHideSpinner(true)
-    }, 500);
-  });
-  
+  const [isHideSpinner, setIsHideSpinner] = useState(0);  
   const authExList = []
-
   
   // this way equal to componentDidMount()
   useEffect(() => {  

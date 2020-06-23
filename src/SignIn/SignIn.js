@@ -87,6 +87,7 @@ class SignIn extends Component {
   }
   
   submitUser = event => {
+    console.log('submit login');
     //userh.get()
     event.preventDefault();
 
@@ -99,6 +100,7 @@ class SignIn extends Component {
     .then(response => {
       tokens.save({ 'userType': 'user', 'token': response.data.accessToken });
       SystemUser.save(response.data.userData);
+      utils.showError("Login Successfull");
       this.props.history.push('/');
     })
     .catch(_errors => {
