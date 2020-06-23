@@ -259,7 +259,7 @@ export default class ProductToOrder extends Component {
                                                 <TableCell>{eachRow.product.price}</TableCell>
                                                 <TableCell>{eachRow.quantity}</TableCell>
                                                 <TableCell>
-                                                    <Link to={"../EditProductToOrder/" + eachRow.id} >
+                                                    <Link to={"../edit-product-to-order/" + eachRow.id} >
                                                         <Button
                                                             variant="contained"
                                                             color="primary"

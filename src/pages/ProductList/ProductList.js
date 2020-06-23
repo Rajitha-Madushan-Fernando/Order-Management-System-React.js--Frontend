@@ -65,7 +65,7 @@ export default class ProductList extends Component {
 
         return (
             <div>
-                <Link to={"NewProduct"} >
+                <Link to={"new-product"} >
                     <Button
                         variant="contained"
                         color="secondary"
@@ -109,7 +109,7 @@ export default class ProductList extends Component {
                                                     </TableCell>
                                                     <TableCell>
                                                         <ButtonGroup>
-                                                            <Link to={"UpdateProduct/" + product.id} >
+                                                            <Link to={"update-product/" + product.id} >
                                                                 <Button
                                                                     size="sm"
                                                                     variant="outline-danger"
