@@ -74,7 +74,7 @@ export default class CustomerList extends Component {
             </Button>
         </Link>
         <br /><br /><br />
-        <Grid item xs={12} sm={8}>
+        <Grid item xs={12} sm={10}>
         <Paper>
           <TableContainer component={Paper}>
             <Table aria-label="customized table" className="customer-table">
