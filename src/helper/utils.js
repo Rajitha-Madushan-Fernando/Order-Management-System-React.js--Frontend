@@ -8,11 +8,11 @@ const utils = {
 		console.error('Error Message',msg);
 	},
 	showMsg: (msg) => {
-		//toast(msg)
+		toast(msg)
 		console.log('Message',msg);
 	},
 	showSuccess: (msg) => {
-		//toast(msg)
+		toast(msg)
 		console.log('Message',msg);
 	},
 	emptyToNull: (value) => {
