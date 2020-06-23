@@ -6,13 +6,12 @@ git reset --hard
 echo "**********************************************  Git get update "
 git pull origin master
 
-echo "**********************************************  Build the project"
+echo "**********************************************  Start Build the project"
 yarn build
 
-echo "**********************************************  Build Completed "
-echo "Build is completed "
+echo "**********************************************  Build Completed " 
 
-echo "**********************************************  Start file copying !"
+echo "**********************************************  Start file copying in /var/www/html/ !"
 sudo cp -R build/* /var/www/html/
 
-echo "**********************************************  File trafer completed to the server folder"
+echo "**********************************************  File trafer completed to the server folder "
