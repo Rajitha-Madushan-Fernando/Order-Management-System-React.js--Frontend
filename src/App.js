@@ -210,7 +210,7 @@ const App = (props) => {
               onClose={handleClose}
             >
               
-              <Link to="/Profile" className={classes.link}> <MenuItem onClick={handleClose}>My Profile</MenuItem></Link>
+              <Link to="/profile" className={classes.link}> <MenuItem onClick={handleClose}>My Profile</MenuItem></Link>
               <MenuItem onClick={handleClose}>Logout</MenuItem>
             </Menu>
 
