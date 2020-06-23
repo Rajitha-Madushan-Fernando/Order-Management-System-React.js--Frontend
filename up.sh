@@ -1,17 +1,15 @@
 cd Order-Management-System-React.js--Frontend
 
-echo "**********************************************  Git reset "
-git reset --hard
+echo "**********************************************  Git reset and get update"
+git add . && git reset --hard && git pull origin master
 
-echo "**********************************************  Git get update "
-git pull origin master
-
-echo "**********************************************  Start Build the project"
+echo "**********************************************  Build the project"
 yarn build
 
-echo "**********************************************  Build Completed " 
+echo "**********************************************  Build Completed "
+echo "Build is completed "
 
-echo "**********************************************  Start file copying in /var/www/html/ !"
+echo "**********************************************  Start file copying !"
 sudo cp -R build/* /var/www/html/
 
-echo "**********************************************  File trafer completed to the server folder "
+echo "**********************************************  File trafer completed to the server folder"
