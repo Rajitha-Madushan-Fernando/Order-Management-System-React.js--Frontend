@@ -21,6 +21,7 @@ import SystemUser from "../helper/user";
 const { baseUrl } = appConfig;
 
 
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -100,7 +101,7 @@ class SignIn extends Component {
       tokens.save({ 'userType': 'user', 'token': response.data.accessToken });
       SystemUser.save(response.data.userData);
       utils.showSuccess("Login Successfull");
-      this.props.history.push('/home');
+      this.props.history.push('/');
     })
     .catch(_errors => {
       if (_errors.response) {

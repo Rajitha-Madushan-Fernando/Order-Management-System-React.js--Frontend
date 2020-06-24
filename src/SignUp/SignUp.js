@@ -92,11 +92,11 @@ class SignUp extends Component {
     event.preventDefault();
 
     const user = {
-      name: this.state.name,
-      username: this.state.username,
-      email: this.state.email,
-      role: ["user"],
-      password: this.state.password,
+      "name" :this.state.name,
+      "username" : this.state.username,
+      "email": this.state.email,
+      "password": this.state.password,
+      "role": ["user"]
     };
     axios
       .post(`${baseUrl}/api/auth/signup`, user)
@@ -114,6 +114,7 @@ class SignUp extends Component {
             errorsObj[field] = defaultMessage;
           });
           console.log(errorsObj);
+          utils.showError("User Saved Failed.");
           this.setState({ errors: errorsObj });
         }
       });
@@ -179,12 +180,13 @@ class SignUp extends Component {
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
+                    name="password"
                     variant="outlined"
                     fullWidth
-                    name="password"
+                    style={{ margin: 2 }}
                     label="Password"
                     type="password"
-                    id="password"
+                    id="outlined-full-width"
                     helperText={this.state.errors.password}
                     margin="normal"
                   />

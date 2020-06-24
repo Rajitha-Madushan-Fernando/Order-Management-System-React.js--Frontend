@@ -172,6 +172,7 @@ export default class NewOrder extends Component {
                     errorsObj[field] = defaultMessage;
                   })
                   console.log(errorsObj);
+                  utils.showError("Order Saved Failed.");
                   this.setState({ errors: errorsObj });
                 }
             });

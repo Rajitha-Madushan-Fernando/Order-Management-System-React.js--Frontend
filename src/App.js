@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from 'react-router-dom';
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import {
   Drawer, List, ListItem,
   ListItemIcon, ListItemText, AppBar, Toolbar,
@@ -41,7 +42,7 @@ import { createBrowserHistory } from "history";
 
 import utils from './helper/utils';
 
-
+//const history = useHistory();
 let history = createBrowserHistory();
 
 const drawerWidth = 240;
@@ -88,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 const App = (props) => {
-  
+ 
   const [isHideSpinner, setIsHideSpinner] = useState(0);  
   const authExList = []
   
@@ -117,7 +118,7 @@ const App = (props) => {
     setAnchorEl(null);
     localStorage.clear();
     utils.redirect('/signin');
-    //props.history.push('/signin');
+   
   };
   
   const handleDrawerToggle = () => {
@@ -216,7 +217,7 @@ const App = (props) => {
               onClose={handleClose}
             >
               
-              <Link to="/profile" className={classes.link}> <MenuItem onClick={handleClose}>My Profile</MenuItem></Link>
+              <Link to="/profile" className={classes.link}> <MenuItem >My Profile</MenuItem></Link>
               <MenuItem onClick={handleClose}>Logout</MenuItem>
             </Menu>
 
