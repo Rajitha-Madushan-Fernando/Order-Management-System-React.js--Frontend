@@ -108,10 +108,10 @@ export default class NewCustomer extends Component {
       address: this.state.address
     };
 
-    axios.put(`${baseUrl}/customer/add/`, customer)
+    axios.post(`${baseUrl}/customer/add/`, customer)
       .then(response => {
         if (response.data != null) {
-          this.setState({ "show": true, "method": "put" });
+          utils.showSuccess("Customer Update Successfully.");
         }
         else {
           this.setState({ "show": false });
@@ -165,9 +165,6 @@ export default class NewCustomer extends Component {
 
     return (
       <div>
-        <div style={{ "display": this.state.show ? "block" : "none" }}>
-          <CustomMessage show={this.state.show} message={this.state.method === "put" ? "Customer Updated Successfully." : "Customer Saved Successfully."} severity={"success"} />
-        </div>
         <Container maxWidth="sm" style={{ float: "left" }}>
           <form onSubmit={this.state.id ? this.updateCustomer : this.submitCustomer} >
             <TextField

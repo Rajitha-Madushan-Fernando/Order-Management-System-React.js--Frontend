@@ -131,7 +131,7 @@ export default class NewOrder extends Component {
                 console.log('id', this.state.id);
                 this.props.history.push('/product-to-order/' + this.state.id);
                 if (response.data != null) {
-                    this.setState({ "show": true, "method": "put" });
+                    utils.showSuccess("Order Update Successfully.");
                 }
                 else {
                     this.setState({ "show": false });

@@ -106,15 +106,11 @@ export default class NewProduct extends Component {
       status: this.state.status
     };
 
-    axios({
-      method: 'put',
-      url: `${baseUrl}/product/add`,
-      data: product
-    })
+    axios.post(`${baseUrl}/product/add`, product)
     .then(response => {
       console.log('response',response);
       if (response.data != null) {
-        this.setState({ "show": true, "method": "put" });
+         utils.showSuccess("Product Update Successfully.");
       }
       else {
         this.setState({ "show": false });
@@ -122,6 +118,7 @@ export default class NewProduct extends Component {
       this.resetState();
     },
     (error)=>{
+      utils.showSuccess("Product Update Failed.");
       console.log('error',error);
     }); 
   };
@@ -169,9 +166,6 @@ export default class NewProduct extends Component {
 
     return (
       <div>
-        <div style={{ "display": this.state.show ? "block" : "none" }}>
-          <CustomMessage show={this.state.show} message={this.state.method === "put" ? "Product Updated Successfully." : "Product Saved Successfully."} severity={"success"} />
-        </div>
         <Container maxWidth="sm" style={{ float: "left" }}>
           <form onSubmit={this.state.id ? this.updateProduct : this.submitProduct} >
             <TextField
