@@ -257,9 +257,10 @@ const App = (props) => {
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <Switch>
+
+            <Route path="/" exact component={HomePage} />
             <Route exact path="/signin" component={SignIn} />
-            <Route path="/" exact component={SignIn} />
-            <Route path="/home" exact component={HomePage} />
+            {/* <Route path="/home" exact component={HomePage} /> */}
             <Route exact path="/customer" component={CustomerList} />
             <Route exact path="/product" component={ProductList} />
             <Route exact path="/order" component={OrderList} />
