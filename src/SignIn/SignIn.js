@@ -100,8 +100,8 @@ class SignIn extends Component {
     .then(response => {
       tokens.save({ 'userType': 'user', 'token': response.data.accessToken });
       SystemUser.save(response.data.userData);
-      utils.showSuccess("Login Successfull");
-      this.props.history.push('/');
+      utils.showSuccess("Login Successfull"); 
+      this.props.history.push('/home');
     })
     .catch(_errors => {
       if (_errors.response) {

@@ -64,7 +64,7 @@ export default function App (props) {
       <Switch> 
         <Route path="/" exact component={SignIn} />
         <Route exact path="/signin" component={SignIn} />
-        {/* <Route path="/home" exact component={HomePage} /> */}
+        <Route path="/home" exact component={HomePage} />
         <Route exact path="/customer" component={CustomerList} />
         <Route exact path="/product" component={ProductList} />
         <Route exact path="/order" component={OrderList} />
