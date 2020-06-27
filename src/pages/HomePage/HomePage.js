@@ -3,6 +3,7 @@ import Alert from '@material-ui/lab/Alert';
 import SystemUser from "../../helper/user";
 import { appConfig } from '../../configs/app.config';
 import utils from '../../helper/utils';
+import AppTemplate from '../../Templates/AppTemplate/AppTemplate';
 const { baseUrl } = appConfig;
 
 
@@ -31,11 +32,11 @@ export default class HomePage extends Component {
   render() {
     const { name } = this.state;
     return (
-      <div>
-        <Alert variant="filled" severity="success">
-          Welcome {this.state.name}, This is a home page.
-        </Alert>
-      </div>
+      <AppTemplate>
+        <div className="HomePage">
+            <h1> Home pageHome  </h1>
+        </div>
+      </AppTemplate>
     )
   }
 }

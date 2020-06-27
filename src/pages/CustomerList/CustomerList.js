@@ -15,6 +15,7 @@ import './CustomerList.css'
 
 import { appConfig } from '../../configs/app.config';
 import utils from '../../helper/utils';
+import AppTemplate from "../../Templates/AppTemplate/AppTemplate";
 const { baseUrl } = appConfig;
 
 
@@ -61,7 +62,8 @@ export default class CustomerList extends Component {
   render() {
 
     return (
-      <div>
+      <AppTemplate>
+        <div className="customer-list">
         <Link to={"new-customer"} >
           <Button
             variant="contained"
@@ -126,6 +128,7 @@ export default class CustomerList extends Component {
             </Paper>
         </Grid>
       </div>
+      </AppTemplate> 
     )
   }
 }
