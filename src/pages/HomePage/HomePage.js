@@ -32,11 +32,11 @@ export default class HomePage extends Component {
   render() {
     const { name } = this.state;
     return (
-      <div className="HomePage">
-        <AppTemplate>
-          <h1>Home page</h1>
-        </AppTemplate>
-      </div>
+      <AppTemplate>
+        <div className="HomePage">
+            <h1> Home pageHome  </h1>
+        </div>
+      </AppTemplate>
     )
   }
 }

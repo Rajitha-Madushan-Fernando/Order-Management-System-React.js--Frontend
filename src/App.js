@@ -1,18 +1,7 @@
 import React, { useState, useEffect } from "react"; 
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { Router, Switch, Route, Link, useHistory } from 'react-router-dom';
-import {
-  Drawer, List, ListItem,
-  ListItemIcon, ListItemText, AppBar, Toolbar,
-  IconButton, Typography, CssBaseline,
-  Hidden, Divider, Button
-} from '@material-ui/core';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import 'react-toastify/dist/ReactToastify.css';
-
-
-
+import { Router, Switch, Route, Link, useHistory } from 'react-router-dom';  
+import 'react-toastify/dist/ReactToastify.css'; 
 import CustomerList from './pages/CustomerList/CustomerList';
 import ProductList from './pages/ProductList/ProductList';
 import HomePage from './pages/HomePage/HomePage';
@@ -38,38 +27,16 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-  },
-  
-  link: {
-    textDecoration: 'none',
-    color: theme.palette.text.primary
-  },
-  drawer: {
-    [theme.breakpoints.up('sm')]: {
-      width: drawerWidth,
-      flexShrink: 0,
-    },
-  },
-  appBar: {
-    [theme.breakpoints.up('sm')]: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth,
-    },
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
-    },
-  },
-  title: {
+  },   
+  content: {
     flexGrow: 1,
+    padding: theme.spacing(3),
   },
 }));
 
 
 
-const App = (props) => {
+export default function App (props) {
   const history = useHistory();
   const [isHideSpinner, setIsHideSpinner] = useState(0);  
   const authExList = []
@@ -88,12 +55,11 @@ const App = (props) => {
   },[]);
   
   const { window } = props;
-  const classes = useStyles();  
-
+  const classes = useStyles();   
 
   const container = window !== undefined ? () => window().document.body : undefined;
 
-  return (
+  return ( 
     <Router history={history}>
       <Switch> 
         <Route path="/" exact component={HomePage} />
@@ -117,9 +83,7 @@ const App = (props) => {
         <Route component={ErrorPage} />
       </Switch>
       {isHideSpinner?'':<LoadingSpinner />}
-    </Router>
-
+    </Router>  
   );
 }
-
-export default App;
+ 
