@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from "react"; 
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import { Redirect } from 'react-router-dom';
+import { Router, Switch, Route, Link, useHistory } from 'react-router-dom';
 import {
   Drawer, List, ListItem,
   ListItemIcon, ListItemText, AppBar, Toolbar,
@@ -37,13 +35,9 @@ import LoadingSpinner from './Components/LoadingSpinner/LoadingSpinner';
 import SignIn from './SignIn/SignIn';
 import SignUp from './SignUp/SignUp';
 import Profile from './Profile/Profile';
-import { interceptor } from './interceptor';
-import { createBrowserHistory } from "history";
+import { interceptor } from './interceptor'; 
 
-import utils from './helper/utils';
-
-//const history = useHistory();
-let history = createBrowserHistory();
+import utils from './helper/utils'; 
 
 const drawerWidth = 240;
 
@@ -89,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 const App = (props) => {
- 
+  const history = useHistory();
   const [isHideSpinner, setIsHideSpinner] = useState(0);  
   const authExList = []
   
@@ -99,8 +93,10 @@ const App = (props) => {
     // this way equal to componentWillMount()
     interceptor(authExList, (authData)=>{ 
       const {loaderIsHide, redirectTo} = authData;
-      console.log('loaderIsHide',loaderIsHide);
       setIsHideSpinner(loaderIsHide);    
+      if(redirectTo!=''){
+        history.push(redirectTo);
+      }
     });
   },[]);
   
@@ -117,7 +113,7 @@ const App = (props) => {
   const handleClose = () => {
     setAnchorEl(null);
     localStorage.clear();
-    utils.redirect('/signin');
+    history.push('/signin');
    
   };
   
@@ -183,7 +179,7 @@ const App = (props) => {
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Router>
+    <Router history={history}>
       <div className={classes.root}>
         <CssBaseline />
         <AppBar position="fixed" className={classes.appBar}>
