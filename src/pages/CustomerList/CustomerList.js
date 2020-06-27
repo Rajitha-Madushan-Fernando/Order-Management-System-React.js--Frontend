@@ -63,7 +63,7 @@ export default class CustomerList extends Component {
 
     return (
       <AppTemplate>
-        <div>
+        <div className="customer-list">
         <Link to={"new-customer"} >
           <Button
             variant="contained"
