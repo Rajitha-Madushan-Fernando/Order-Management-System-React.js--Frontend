@@ -1,7 +1,7 @@
 {
   "name": "order-mgt-system",
   "version": "0.1.0",
-  "homepage": ".",
+  "homepage": "./html",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.10.1",
