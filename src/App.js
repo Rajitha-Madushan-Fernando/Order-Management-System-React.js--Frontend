@@ -11,12 +11,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import 'react-toastify/dist/ReactToastify.css';
 
-import HomeIcon from '@material-ui/icons/Home';
-import GroupIcon from '@material-ui/icons/Group';
-import StorefrontIcon from '@material-ui/icons/Storefront';
-import MenuIcon from '@material-ui/icons/Menu';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import AccountCircle from '@material-ui/icons/AccountCircle';
+
 
 import CustomerList from './pages/CustomerList/CustomerList';
 import ProductList from './pages/ProductList/ProductList';
@@ -39,13 +34,12 @@ import { interceptor } from './interceptor';
 
 import utils from './helper/utils'; 
 
-const drawerWidth = 240;
-
+const drawerWidth = 240; 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
   },
-  drawerPaper: { width: 'inherit' },
+  
   link: {
     textDecoration: 'none',
     color: theme.palette.text.primary
@@ -67,13 +61,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       display: 'none',
     },
-  },
-  // necessary for content to be below app bar
-  toolbar: theme.mixins.toolbar,
-
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
   },
   title: {
     flexGrow: 1,
@@ -101,184 +88,35 @@ const App = (props) => {
   },[]);
   
   const { window } = props;
-  const classes = useStyles();
-  const theme = useTheme();
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  
-  const handleClose = () => {
-    setAnchorEl(null);
-    localStorage.clear();
-    history.push('/signin');
-   
-  };
-  
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
-  
-  const drawer = (
-    <div>
+  const classes = useStyles();  
 
-      <Drawer
-        style={{ width: '240px' }}
-        variant="persistent"
-        anchor="left"
-        open={true}
-        classes={{ paper: classes.drawerPaper }}
-      >
-        <div className={classes.toolbar} />
-        <Divider />
-        <List>
-          <Link to="/" className={classes.link}>
-            <ListItem button>
-              <ListItemIcon>
-                <HomeIcon />
-              </ListItemIcon>
-              <ListItemText primary={"Home"} />
-            </ListItem>
-          </Link>
-
-          <Link to="/customer" className={classes.link}>
-            <ListItem button>
-              <ListItemIcon>
-                <GroupIcon />
-              </ListItemIcon>
-              <ListItemText primary={"Customers"} />
-            </ListItem>
-          </Link>
-
-          <Link to="/product" className={classes.link}>
-            <ListItem button>
-              <ListItemIcon>
-                <StorefrontIcon />
-              </ListItemIcon>
-              <ListItemText primary={"Products"} />
-            </ListItem>
-          </Link>
-
-          <Link to="/order" className={classes.link}>
-            <ListItem button>
-              <ListItemIcon>
-                <AddShoppingCartIcon />
-              </ListItemIcon>
-              <ListItemText primary={"Orders"} />
-            </ListItem>
-          </Link>
-
-        </List>
-
-      </Drawer>
-    </div >
-  );
 
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
     <Router history={history}>
-      <div className={classes.root}>
-        <CssBaseline />
-        <AppBar position="fixed" className={classes.appBar}>
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              className={classes.menuButton}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" noWrap className={classes.title}>
-              Order Management system
-            </Typography>
-            <IconButton
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              color="inherit"
-              onClick={handleClick}
-            >
-              <AccountCircle />
-            </IconButton>
-            <Menu
-              id="simple-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              
-              <Link to="/profile" className={classes.link}> <MenuItem >My Profile</MenuItem></Link>
-              <MenuItem onClick={handleClose}>Logout</MenuItem>
-            </Menu>
-
-          </Toolbar>
-        </AppBar>
-        <nav className={classes.drawer} aria-label="mailbox folders">
-          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-          <Hidden smUp implementation="css">
-            <Drawer
-              container={container}
-              variant="temporary"
-              anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-              open={mobileOpen}
-              onClose={handleDrawerToggle}
-              classes={{
-                paper: classes.drawerPaper,
-              }}
-              ModalProps={{
-                keepMounted: true, // Better open performance on mobile.
-              }}
-            >
-              {drawer}
-            </Drawer>
-          </Hidden>
-          <Hidden xsDown implementation="css">
-            <Drawer
-              classes={{
-                paper: classes.drawerPaper,
-              }}
-              variant="permanent"
-              open
-            >
-              {drawer}
-            </Drawer>
-          </Hidden>
-        </nav>
-
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
-          <Switch>
-
-            <Route path="/" exact component={HomePage} />
-            <Route exact path="/signin" component={SignIn} />
-            {/* <Route path="/home" exact component={HomePage} /> */}
-            <Route exact path="/customer" component={CustomerList} />
-            <Route exact path="/product" component={ProductList} />
-            <Route exact path="/order" component={OrderList} />
-            <Route exact path="/order-view/:id" component={OrderView} />
-            <Route exact path="/order-product-edit/:id" component={OrderProductEdit} />
-            <Route exact path="/new-customer" component={NewCustomer} />
-            <Route exact path="/update-customer/:id" component={NewCustomer} />
-            <Route exact path="/new-product" component={NewProduct} />
-            <Route exact path="/update-product/:id" component={NewProduct} />
-            <Route exact path="/new-order" component={NewOrder} />
-            <Route exact path="/update-order/:id" component={NewOrder} />
-            <Route exact path="/product-to-order/:id" component={ProductToOrder} />
-            <Route exact path="/edit-product-to-order/:id" component={EditOrderProduct} />
-            <Route exact path="/signup" component={SignUp} />
-            <Route path="/profile" component={Profile} />
-            <Route component={ErrorPage} />
-          </Switch>
-          {isHideSpinner?'':<LoadingSpinner />}
-        </main>
-
-      </div>
+      <Switch> 
+        <Route path="/" exact component={HomePage} />
+        <Route exact path="/signin" component={SignIn} />
+        {/* <Route path="/home" exact component={HomePage} /> */}
+        <Route exact path="/customer" component={CustomerList} />
+        <Route exact path="/product" component={ProductList} />
+        <Route exact path="/order" component={OrderList} />
+        <Route exact path="/order-view/:id" component={OrderView} />
+        <Route exact path="/order-product-edit/:id" component={OrderProductEdit} />
+        <Route exact path="/new-customer" component={NewCustomer} />
+        <Route exact path="/update-customer/:id" component={NewCustomer} />
+        <Route exact path="/new-product" component={NewProduct} />
+        <Route exact path="/update-product/:id" component={NewProduct} />
+        <Route exact path="/new-order" component={NewOrder} />
+        <Route exact path="/update-order/:id" component={NewOrder} />
+        <Route exact path="/product-to-order/:id" component={ProductToOrder} />
+        <Route exact path="/edit-product-to-order/:id" component={EditOrderProduct} />
+        <Route exact path="/signup" component={SignUp} />
+        <Route path="/profile" component={Profile} />
+        <Route component={ErrorPage} />
+      </Switch>
+      {isHideSpinner?'':<LoadingSpinner />}
     </Router>
 
   );
