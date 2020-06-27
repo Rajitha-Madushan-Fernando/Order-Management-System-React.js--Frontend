@@ -1,28 +1,7 @@
 import React, { useState, useEffect } from "react"; 
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-<<<<<<< HEAD
-import { Router, Switch, Route, Link, useHistory } from 'react-router-dom';
-import {
-  Drawer, List, ListItem,
-  ListItemIcon, ListItemText, AppBar, Toolbar,
-  IconButton, Typography, CssBaseline,
-  Hidden, Divider, Button
-} from '@material-ui/core';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import 'react-toastify/dist/ReactToastify.css';
-
-import HomeIcon from '@material-ui/icons/Home';
-import GroupIcon from '@material-ui/icons/Group';
-import StorefrontIcon from '@material-ui/icons/Storefront';
-import MenuIcon from '@material-ui/icons/Menu';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-
-=======
 import { Router, Switch, Route, Link, useHistory } from 'react-router-dom';  
 import 'react-toastify/dist/ReactToastify.css'; 
->>>>>>> 10.seperate-tempalte
 import CustomerList from './pages/CustomerList/CustomerList';
 import ProductList from './pages/ProductList/ProductList';
 import HomePage from './pages/HomePage/HomePage';
