@@ -1,6 +1,7 @@
 {
   "name": "order-mgt-system",
   "version": "0.1.0",
+  "homepage": "http://ec2-18-218-157-222.us-east-2.compute.amazonaws.com",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.10.1",
