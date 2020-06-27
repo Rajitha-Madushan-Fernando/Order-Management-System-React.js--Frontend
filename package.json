@@ -1,6 +1,7 @@
 {
   "name": "order-mgt-system",
   "version": "0.1.0",
+  "homepage": ".",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.10.1",
@@ -27,6 +28,7 @@
     "start:dev": "env-cmd -f .env.dev react-scripts start",
     "build": "env-cmd -f .env.prod react-scripts build",
     "build:dev": "env-cmd -f .env.dev react-scripts build", 
+    "aws": "ssh -i keys/MySecurityKeyForAWS.pem ubuntu@ec2-18-218-157-222.us-east-2.compute.amazonaws.com",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
