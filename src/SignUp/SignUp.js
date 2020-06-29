@@ -187,6 +187,7 @@ class SignUp extends Component {
                     label="Password"
                     type="password"
                     id="outlined-full-width"
+                    onChange={this.handleInputChange}
                     helperText={this.state.errors.password}
                     margin="normal"
                   />
