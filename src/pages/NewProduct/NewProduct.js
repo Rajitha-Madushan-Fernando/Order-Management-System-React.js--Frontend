@@ -7,7 +7,7 @@ import axios from 'axios';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 import SendIcon from '@material-ui/icons/Send';
 import CustomMessage from '../CustomMessage/CustomMessage';
-
+import AppTemplate from "../../Templates/AppTemplate/AppTemplate";
 import utils from '../../helper/utils';
 import { appConfig } from '../../configs/app.config';
 const { baseUrl } = appConfig;
@@ -165,7 +165,8 @@ export default class NewProduct extends Component {
   render() {
 
     return (
-      <div>
+      <AppTemplate>
+        <div className="new-product">
         <Container maxWidth="sm" style={{ float: "left" }}>
           <form onSubmit={this.state.id ? this.updateProduct : this.submitProduct} >
             <TextField
@@ -275,7 +276,8 @@ export default class NewProduct extends Component {
               Reset</Button>
           </form>
         </Container>
-      </div>
+        </div>
+      </AppTemplate>
     )
   }
 }

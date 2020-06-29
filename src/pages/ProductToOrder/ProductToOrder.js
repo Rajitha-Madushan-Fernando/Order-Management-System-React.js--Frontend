@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 import UpdateIcon from '@material-ui/icons/Update';
 import SendIcon from '@material-ui/icons/Send';
-
+import AppTemplate from "../../Templates/AppTemplate/AppTemplate";
 import utils from '../../helper/utils';
 import { appConfig } from '../../configs/app.config';
 const { baseUrl } = appConfig;
@@ -150,7 +150,8 @@ export default class ProductToOrder extends Component {
     render() {
         const { productData, orderDetails } = this.state;
         return (
-            <div>
+            <AppTemplate>
+                <div className="product-to-order">
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={6}>
                             <form onSubmit={this.state.id ? this.updateOrderProduct : this.submitOrderProduct} >
@@ -283,7 +284,8 @@ export default class ProductToOrder extends Component {
                     </Grid>
 
                 </Grid>
-            </div>
+                </div>
+            </AppTemplate>
         )
     }
 }

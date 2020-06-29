@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import {
-    Button, TextField,Container, MenuItem, InputLabel, FormHelperText,
+    Button, TextField, Container, MenuItem, InputLabel, FormHelperText,
     Select
 
 } from '@material-ui/core';
@@ -11,6 +11,7 @@ import SendIcon from '@material-ui/icons/Send';
 
 import utils from '../../helper/utils';
 import { appConfig } from '../../configs/app.config';
+import AppTemplate from "../../Templates/AppTemplate/AppTemplate";
 const { baseUrl } = appConfig;
 
 
@@ -21,7 +22,7 @@ export default class EditOrderProduct extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            productData:[],
+            productData: [],
             order_id: null,
             product: null,
             quanity: null,
@@ -46,7 +47,7 @@ export default class EditOrderProduct extends Component {
     }
     resetState() {
         this.setState({
-            id: null, order_id:null, product: null, quanity: null,
+            id: null, order_id: null, product: null, quanity: null,
         })
     }
 
@@ -61,7 +62,7 @@ export default class EditOrderProduct extends Component {
     componentDidMount() {
         const OrderProductId = this.props.match.params.id;
         this.findAllProduct();
-        console.log('OrderProductId',OrderProductId);
+        console.log('OrderProductId', OrderProductId);
         if (OrderProductId) {
             this.findOrderById(OrderProductId);
         }
@@ -87,9 +88,9 @@ export default class EditOrderProduct extends Component {
                         quantity: quantity,
                         product: product.id,
                     });
-                    console.log('OrderId',order_id);
+                    console.log('OrderId', order_id);
                 }
-                
+
 
             }).catch((error) => {
                 console.error("Error - " + error);
@@ -129,22 +130,23 @@ export default class EditOrderProduct extends Component {
             })
             .catch(_errors => {
                 if (_errors.response) {
-                  const { errors } = _errors.response.data;
-                  let errorsObj = {}
-                  errors.forEach(error => {
-                    const { defaultMessage, field } = error
-                    errorsObj[field] = defaultMessage;
-                  })
-                  console.log(errorsObj);
-                  this.setState({ errors: errorsObj });
+                    const { errors } = _errors.response.data;
+                    let errorsObj = {}
+                    errors.forEach(error => {
+                        const { defaultMessage, field } = error
+                        errorsObj[field] = defaultMessage;
+                    })
+                    console.log(errorsObj);
+                    this.setState({ errors: errorsObj });
                 }
             });
         this.setState(this.initialState);
     };
     render() {
-        const { productData} = this.state;
+        const { productData } = this.state;
         return (
-            <div>
+            <AppTemplate>
+                <div className="order-list">
                 <Container maxWidth="sm" style={{ float: "left" }}>
                     <form onSubmit={this.updateOrderProduct} >
                         <TextField
@@ -165,7 +167,7 @@ export default class EditOrderProduct extends Component {
                             }}
                             variant="outlined"
                         />
-                        
+
                         <br /><br />
                         <InputLabel shrink id="demo-simple-select-placeholder-label-label">
                             Product Name
@@ -228,7 +230,8 @@ export default class EditOrderProduct extends Component {
                             Reset</Button>
                     </form>
                 </Container>
-            </div>
+                </div>
+            </AppTemplate>
         )
     }
 }

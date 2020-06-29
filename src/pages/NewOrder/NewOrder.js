@@ -9,11 +9,13 @@ import axios from 'axios';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 import SendIcon from '@material-ui/icons/Send';
 import CustomMessage from '../CustomMessage/CustomMessage';
+import AppTemplate from "../../Templates/AppTemplate/AppTemplate";
 
 
 
 import { appConfig } from '../../configs/app.config';
 import utils from '../../helper/utils';
+
 const { baseUrl } = appConfig;
 
 
@@ -181,7 +183,8 @@ export default class NewOrder extends Component {
     render() {
         const { customerData } = this.state;
         return (
-            <div>
+            <AppTemplate>
+                <div className="new-order">
                 <div style={{ "display": this.state.show ? "block" : "none" }}>
                     <CustomMessage show={this.state.show} message={this.state.method === "put" ? "Order Updated Successfully." : "Order Saved Successfully."} severity={"success"} />
                 </div>
@@ -304,7 +307,8 @@ export default class NewOrder extends Component {
                             Reset</Button>
                     </form>
                 </Container>
-            </div>
+                </div>
+            </AppTemplate>
         )
     }
 }

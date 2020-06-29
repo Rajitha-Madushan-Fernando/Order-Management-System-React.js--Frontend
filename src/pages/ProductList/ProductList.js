@@ -14,7 +14,7 @@ import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import './ProductList.css'
-
+import AppTemplate from "../../Templates/AppTemplate/AppTemplate";
 import { appConfig } from '../../configs/app.config';
 import utils from '../../helper/utils';
 const { baseUrl } = appConfig;
@@ -64,7 +64,8 @@ export default class ProductList extends Component {
     render() {
 
         return (
-            <div>
+            <AppTemplate>
+                <div className="product-list">
                 <Link to={"new-product"} >
                     <Button
                         variant="contained"
@@ -128,7 +129,8 @@ export default class ProductList extends Component {
                         </TableContainer>
                         </Paper>
                     </Grid>
-            </div>
+                    </div>
+            </AppTemplate>
         )
     }
 }

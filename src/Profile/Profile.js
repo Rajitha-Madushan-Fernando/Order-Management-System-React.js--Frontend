@@ -23,7 +23,7 @@ import SystemUser from "../helper/user";
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import UpdateIcon from '@material-ui/icons/Update';
-
+import AppTemplate from "../Templates/AppTemplate/AppTemplate";
 import { appConfig } from '../configs/app.config';
 import utils from '../helper/utils';
 const { baseUrl } = appConfig;
@@ -61,7 +61,7 @@ export default class OrderView extends Component {
   render() {
     const { name, email, username} = this.state;
     return (
-      <div >
+      <AppTemplate >
         <Container maxWidth="sm" style={{float:"left"}}>
           <Card variant="outlined">
             <CardContent>
@@ -98,7 +98,7 @@ export default class OrderView extends Component {
           </Card>
         </Container>
        
-      </div>
+      </AppTemplate>
     )
   }
 }

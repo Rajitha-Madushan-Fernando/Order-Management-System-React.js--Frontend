@@ -8,7 +8,7 @@ import './NewCustomer.css'
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 import SendIcon from '@material-ui/icons/Send';
 import CustomMessage from '../CustomMessage/CustomMessage';
-
+import AppTemplate from "../../Templates/AppTemplate/AppTemplate";
 
 
 import { appConfig } from '../../configs/app.config';
@@ -164,7 +164,8 @@ export default class NewCustomer extends Component {
   render() {
 
     return (
-      <div>
+      <AppTemplate>
+        <div className="customer-add">
         <Container maxWidth="sm" style={{ float: "left" }}>
           <form onSubmit={this.state.id ? this.updateCustomer : this.submitCustomer} >
             <TextField
@@ -269,7 +270,8 @@ export default class NewCustomer extends Component {
               Reset</Button>
           </form>
         </Container>
-      </div>
+        </div>
+      </AppTemplate>
     )
   }
 }

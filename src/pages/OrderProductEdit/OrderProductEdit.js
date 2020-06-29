@@ -11,7 +11,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
-
+import AppTemplate from "../../Templates/AppTemplate/AppTemplate";
 import { appConfig } from '../../configs/app.config';
 import utils from '../../helper/utils';
 const { baseUrl } = appConfig;
@@ -62,6 +62,8 @@ export default class OrderProductEdit extends Component{
    
     render(){
         return(
+            <AppTemplate>
+                <div className="order-product-edit">
             <TableContainer component={Paper}>
                 <Table aria-label="customized table">
                     <TableHead>
@@ -109,6 +111,8 @@ export default class OrderProductEdit extends Component{
                     </TableBody>
                 </Table>
             </TableContainer>
+            </div>
+            </AppTemplate>
         )
     }
 }

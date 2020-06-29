@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-
+import AppTemplate from "../../Templates/AppTemplate/AppTemplate";
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import UpdateIcon from '@material-ui/icons/Update';
@@ -92,7 +92,8 @@ export default class OrderView extends Component {
     // const orderList = []
 
     return (
-      <div >
+      <AppTemplate >
+        <div className="order-view">
         <Grid container spacing={3}>
           <Grid item sm={4}>
             <Card variant="outlined">
@@ -199,8 +200,8 @@ export default class OrderView extends Component {
             </Table>
           </TableContainer>
         </Grid>
-
-      </div>
+        </div>        
+      </AppTemplate>
 
 
 
