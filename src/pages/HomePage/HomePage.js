@@ -34,7 +34,7 @@ export default class HomePage extends Component {
     return (
       <AppTemplate>
         <div className="HomePage">
-            <h1> Home pageHome  </h1>
+            <h1> Home page  </h1>
         </div>
       </AppTemplate>
     )

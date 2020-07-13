@@ -39,7 +39,10 @@ const useStyles = makeStyles((theme) => ({
 export default function App (props) {
   const history = useHistory();
   const [isHideSpinner, setIsHideSpinner] = useState(0);  
-  const authExList = []
+  const authExList = [
+    'api/user/login',
+    'api/user/',
+  ]
   
   // this way equal to componentDidMount()
   useEffect(() => {  
