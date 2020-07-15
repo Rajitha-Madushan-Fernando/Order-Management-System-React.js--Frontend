@@ -41,27 +41,27 @@ export default function AppBarCmp(props) {
   const classes = useStyles(); 
   
   const theme = props.theme;
-  const [tags, setTags] = useState(false); 
-  const {REACT_APP_API_BASE_URL} = process.env;
+  //const [tags, setTags] = useState(false); 
+  //const {REACT_APP_API_BASE_URL} = process.env;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const fetchData = () => {  
-    Axios.get(`${ REACT_APP_API_BASE_URL }`)
-    .then((response)=> { 
-      setTags(response.data);
-    })
-  } 
+  // const fetchData = () => {  
+  //   Axios.get(`${ REACT_APP_API_BASE_URL }`)
+  //   .then((response)=> { 
+  //     setTags(response.data);
+  //   })
+  // } 
   
-  const urls = [
-    { name:'textToHash2',   url:'/textToHash' },
-    { name:'trending',      url:'/page/trending' },
-    { name:'tipsToTrend',   url:'/page/tipsToTrend' },
-    { name:'hashTagFollow', url:'/page/hashTagFollow'}
-  ]
+  // const urls = [
+  //   { name:'textToHash2',   url:'/textToHash' },
+  //   { name:'trending',      url:'/page/trending' },
+  //   { name:'tipsToTrend',   url:'/page/tipsToTrend' },
+  //   { name:'hashTagFollow', url:'/page/hashTagFollow'}
+  // ]
 
   useEffect(() => {
     // setOpen(true);
-    fetchData()  // eslint-disable-next-line react-hooks/exhaustive-deps
+    //fetchData()  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
   
 
