@@ -4,8 +4,7 @@ import tokens from './helper/tokens';
 
 export const interceptor =  function(excludeUrl, cb) {  
   console.log('interceptor init');
-  axios.interceptors.request.use((request) => { 
-    console.log('request',request);
+  axios.interceptors.request.use((request) => {
     cb({loaderIsHide:false, redirectTo:''})
    // const urlObj = new URL(request.url);
     //if(excludeUrl.indexOf(urlObj.pathname)<0){
