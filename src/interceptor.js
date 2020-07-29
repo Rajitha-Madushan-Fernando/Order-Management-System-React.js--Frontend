@@ -4,8 +4,7 @@ import tokens from './helper/tokens';
 
 export const interceptor =  function(excludeUrl, cb) {  
   console.log('interceptor init');
-  axios.interceptors.request.use((request) => { 
-    console.log('request',request);
+  axios.interceptors.request.use((request) => {
     cb({loaderIsHide:false, redirectTo:''})
    // const urlObj = new URL(request.url);
     //if(excludeUrl.indexOf(urlObj.pathname)<0){
@@ -24,16 +23,11 @@ export const interceptor =  function(excludeUrl, cb) {
   
   axios.interceptors.response.use(
     (response) => {
-      console.log('response', response);
       // Return a successful response back to the calling service
       cb({loaderIsHide:true, redirectTo:''})
       return response;
     },
-    (error) => {
-      if(error.message === "Network Error"){ 
-        //utils.showError('Server offline or your offline');
-        console.error('Server offline or your offline', error.message);
-      }
+    (error) => { 
       // Return any error which is not due to authentication back to the calling service
       if(error.response === undefined) {
         cb({loaderIsHide:true, redirectTo:''})

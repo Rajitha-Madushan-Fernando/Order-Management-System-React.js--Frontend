@@ -34,27 +34,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
 export default function App (props) {
   const history = useHistory();
   const [isHideSpinner, setIsHideSpinner] = useState(0);  
   const authExList = [
     'api/user/login',
     'api/user/',
-  ]
+  ]; 
+  
+  interceptor(authExList, (authData)=>{ 
+    const {loaderIsHide, redirectTo} = authData;
+    setIsHideSpinner(loaderIsHide);    
+    if(redirectTo!=''){
+      history.push(redirectTo);
+    }
+  });
   
   // this way equal to componentDidMount()
   useEffect(() => {  
-    setIsHideSpinner(true);
-    // this way equal to componentWillMount()
-    interceptor(authExList, (authData)=>{ 
-      const {loaderIsHide, redirectTo} = authData;
-      setIsHideSpinner(loaderIsHide);    
-      if(redirectTo!=''){
-        history.push(redirectTo);
-      }
-    });
+    setIsHideSpinner(true); 
   },[]);
   
   const { window } = props;
