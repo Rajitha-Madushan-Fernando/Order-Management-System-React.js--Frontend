@@ -33,8 +33,8 @@ export default class CustomerList extends Component {
   }
 
   findAllCustomers() {
+    console.log('send customer list before');
     axios.get(`${baseUrl}/customer/list/`)
-      /** .then(response => console.log(response.data));*/
       .then(response => response.data)
       .then((data) => {
         this.setState({ customer: data });

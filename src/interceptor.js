@@ -24,16 +24,11 @@ export const interceptor =  function(excludeUrl, cb) {
   
   axios.interceptors.response.use(
     (response) => {
-      console.log('response', response);
       // Return a successful response back to the calling service
       cb({loaderIsHide:true, redirectTo:''})
       return response;
     },
-    (error) => {
-      if(error.message === "Network Error"){ 
-        //utils.showError('Server offline or your offline');
-        console.error('Server offline or your offline', error.message);
-      }
+    (error) => { 
       // Return any error which is not due to authentication back to the calling service
       if(error.response === undefined) {
         cb({loaderIsHide:true, redirectTo:''})
